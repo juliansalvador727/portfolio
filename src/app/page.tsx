@@ -19,7 +19,9 @@ export default function Home() {
           </ul>
         </div>
 
-        <Button variant="outline">check out my projects</Button>
+        <Button className="mt-8" variant="outline">
+          check out my projects
+        </Button>
       </main>
     </>
   );

@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-4">
+    <footer className="">
       <div className="mx-auto max-w-xl flex items-center gap-6 border-border border-t py-2">
         {/* GitHub */}
         <Link
