@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+
+// components
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+
 import { Raleway } from "next/font/google";
 
 const raleway = Raleway({
@@ -59,7 +63,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="mx-auto max-w-xl px-4 py-6">{children}</main>
+          <main className="mx-auto max-w-xl py-6">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -6,7 +6,7 @@ import { ModeToggle } from "@/components/mode";
 export function Navbar() {
   return (
     <nav className="mt-8">
-      <div className="mx-auto flex max-w-xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-xl items-center justify-between py-3">
         {/* Left side - name */}
         <Link href="/" className="text-base font-semibold">
           julian salvador
@@ -15,7 +15,9 @@ export function Navbar() {
         {/* Right side - links */}
         <div className="flex items-center gap-2 sm:gap-10">
           <Link
-            href="/resume"
+            href="/resume.pdf"
+            target="_blank" // open in a new tab
+            rel="noopener noreferrer"
             className="text-sm font-medium hover:underline underline-offset-4"
           >
             resume
@@ -27,7 +29,7 @@ export function Navbar() {
             projects
           </Link>
           <Link
-            href="/piano"
+            href="/fun-stuff"
             className="text-sm font-medium hover:underline underline-offset-4"
           >
             fun stuff
