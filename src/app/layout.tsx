@@ -23,6 +23,22 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: "Julian Salvador",
   description: "Portfolio of Julian Salvador",
+  openGraph: {
+    title: "Julian Salvador",
+    description: "Portfolio of Julian Salvador",
+    url: "https://juliansalvador.com", // replace with your actual domain
+    siteName: "Julian Salvador",
+    images: [
+      {
+        url: "/jsicon.svg", // your logo
+        width: 512,
+        height: 512,
+        alt: "Julian Salvador Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
