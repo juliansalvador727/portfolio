@@ -25,16 +25,17 @@ const raleway = Raleway({
 // });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://juliansalvador.com"), // <- add this
   title: "Julian Salvador",
   description: "either building or playing piano",
   openGraph: {
     title: "Julian Salvador | CE at UWaterloo",
     description: "either building or playing piano",
-    url: "https://juliansalvador.com", // replace with your actual domain
+    url: "https://juliansalvador.com",
     siteName: "Julian Salvador",
     images: [
       {
-        url: "/jsicon.svg", // your logo
+        url: "/jsicon.svg",
         width: 512,
         height: 512,
         alt: "Julian Salvador Logo",
@@ -42,6 +43,12 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Julian Salvador | CE at UWaterloo",
+    description: "either building or playing piano",
+    images: ["/jsicon.svg"],
   },
 };
 
