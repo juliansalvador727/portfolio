@@ -6,7 +6,7 @@ export default function Home() {
       <main>
         <div className="space-y-1">
           <p>hi, my name is julian. </p>
-          <p>currently, i'm... </p>
+          <p>currently, i&apos;m... </p>
           <ul className="list-disc list-inside">
             <li>a computer engineering student @ uwaterloo</li>
             <li>building fullstack for satellites @ uw orbital</li>
