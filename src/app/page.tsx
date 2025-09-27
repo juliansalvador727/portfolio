@@ -136,8 +136,8 @@ export default function Home() {
         </ul>
       </div>
 
-      <Button className="mt-8" variant="outline">
-        check out my projects
+      <Button className="mt-8" variant="outline" asChild>
+        <Link href="/projects">check out my projects</Link>
       </Button>
     </main>
   );
