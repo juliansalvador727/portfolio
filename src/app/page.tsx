@@ -9,108 +9,136 @@ import GojoLogo from "@/components/icons/GojoLogo.png";
 
 export default function Home() {
   return (
-    <>
-      <main>
-        <div className="space-y-1">
-          <p>hi, my name is julian.</p>
-          <p>currently, i&apos;m... </p>
-          <ul className="list-none">
-            <li className="flex items-center space-x-1">
-              <span>‣</span>
-              <span>a computer engineering student @</span>
-              <Image src={UWLogo} alt="UW Logo" width={15} height={15} />
-              <span>
-                <Link
-                  className="underline"
-                  href="https://uwaterloo.ca/electrical-computer-engineering/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  uwaterloo
-                </Link>
-              </span>
-            </li>
-            <li className="flex items-center space-x-1">
-              <span>‣</span>
-              <span>doing fullstack & sending a satellite to space @</span>
-              <Image
-                src={OrbitalLogo}
-                alt="Orbital Logo"
-                width={15}
-                height={15}
-              />
-              <span>
-                <Link
-                  className="underline"
-                  href="https://www.uworbital.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  orbital
-                </Link>
-              </span>
-            </li>
-          </ul>
+    <main>
+      <div className="space-y-1">
+        <p>hi, my name is julian.</p>
+        <p>currently, i&apos;m... </p>
 
-          <p>in the past i...</p>
-          <ul className="list-none">
-            <li className="flex items-center space-x-1">
-              <span>‣</span>
-              <span>did engineering outreach to 250+ students @</span>
-              <Image src={SFULogo} alt="SFU Logo" width={25} height={20} />
-              <span>
-                <Link
-                  className="underline"
-                  href="https://www.sfu.ca/fas/about/community-engagement-outreach/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Simon Fraser University
-                </Link>
-              </span>
-            </li>
-            <li className="flex items-center space-x-1">
-              <span>‣</span>
-              <span>won 2 piano concerto competitions @</span>
-              <Image src={VayaLogo} alt="Vaya Logo" width={15} height={15} />
-              <span>
-                <Link
-                  className="underline"
-                  href="https://vayafestivals.ca/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  vayalive
-                </Link>
-              </span>
-            </li>
-            <li className="flex items-center space-x-1">
-              <span>‣</span>
-              <span>coloured the greatest jujutsu sorcerer</span>
-              <Image
-                src={GojoLogo}
-                alt="Vaya Logo"
-                width={20}
-                height={20}
-              ></Image>
-              <span>
-                <Link
-                  className="underline"
-                  href="https://www.desmos.com/calculator/9gcwysjqal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  with math
-                </Link>
-              </span>
-            </li>
-          </ul>
-        </div>
+        <ul className="list-none">
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">a comp eng student @</span>
+            <Image
+              src={UWLogo}
+              alt="UW Logo"
+              width={15}
+              height={15}
+              className="w-4 h-4 sm:w-5 sm:h-5"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://uwaterloo.ca/electrical-computer-engineering/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                uwaterloo
+              </Link>
+            </span>
+          </li>
 
-        <Button className="mt-8" variant="outline">
-          check out my projects
-        </Button>
-      </main>
-    </>
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">
+              building fullstack & satellites @
+            </span>
+            <Image
+              src={OrbitalLogo}
+              alt="Orbital Logo"
+              width={15}
+              height={15}
+              className="w-4 h-4 sm:w-5 sm:h-5"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://www.uworbital.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                orbital
+              </Link>
+            </span>
+          </li>
+        </ul>
+
+        <p>in the past i...</p>
+        <ul className="list-none">
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">
+              did STEM outreach to 250+ students @
+            </span>
+            <Image
+              src={SFULogo}
+              alt="SFU Logo"
+              width={25}
+              height={20}
+              className="w-5.5 h-3 sm:w-5.5 sm:h-3"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://www.sfu.ca/fas/about/community-engagement-outreach/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                sfu
+              </Link>
+            </span>
+          </li>
+
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">
+              won 2 piano concerto festivals @
+            </span>
+            <Image
+              src={VayaLogo}
+              alt="Vaya Logo"
+              width={15}
+              height={15}
+              className="w-4 h-4 sm:w-5 sm:h-5"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://vayafestivals.ca/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                vayalive
+              </Link>
+            </span>
+          </li>
+
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">drew the greatest sorcerer</span>
+            <Image
+              src={GojoLogo}
+              alt="Gojo Logo"
+              width={20}
+              height={20}
+              className="w-5 h-5 sm:w-6 sm:h-6"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://www.desmos.com/calculator/9gcwysjqal"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                with math
+              </Link>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <Button className="mt-8" variant="outline">
+        check out my projects
+      </Button>
+    </main>
   );
 }
