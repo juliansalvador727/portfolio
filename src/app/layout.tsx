@@ -22,10 +22,10 @@ const raleway = Raleway({
 
 export const metadata: Metadata = {
   title: "Julian Salvador",
-  description: "Portfolio of Julian Salvador",
+  description: "either building or playing piano",
   openGraph: {
-    title: "Julian Salvador",
-    description: "Portfolio of Julian Salvador",
+    title: "Julian Salvador | CE at UWaterloo",
+    description: "either building or playing piano",
     url: "https://juliansalvador.com", // replace with your actual domain
     siteName: "Julian Salvador",
     images: [
