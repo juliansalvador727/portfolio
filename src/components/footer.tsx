@@ -5,8 +5,8 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-8 py-4">
-      <div className="mx-auto max-w-xl flex border-t border-border items-center gap-6">
+    <footer className="mt-4">
+      <div className="mx-auto max-w-xl flex items-center gap-6 border-border border-t py-2">
         {/* GitHub */}
         <Link
           href="https://github.com/juliansalvador727"

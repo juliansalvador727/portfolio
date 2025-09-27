@@ -55,7 +55,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="/jsicon.svg"></link>
       </head>
-      <body className={`${raleway.variable} font-sans antialiased`}>
+      <body className={`${raleway.variable} font-sans antialiased p-3`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
