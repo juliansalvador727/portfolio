@@ -1,8 +1,6 @@
-import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <header>julian salvador resume projects dark/light mode button</header>
       <main>
         <ul>
           <li>CE @ UWaterloo</li>
