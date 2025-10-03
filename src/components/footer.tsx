@@ -31,7 +31,7 @@ export function Footer() {
 
         {/* Email */}
         <Link
-          href="mailto:your-email@example.com"
+          href="mailto:jesalvad@uwaterloo.ca"
           className="text-foreground hover:text-primary transition"
           aria-label="Email"
         >
