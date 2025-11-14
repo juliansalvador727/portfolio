@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UWLogo from "@/components/icons/UWLogo.png";
 import OrbitalLogo from "@/components/icons/Orbital.png";
+import MidSun from "@/components/icons/MidSun.png";
 import VayaLogo from "@/components/icons/VayaLogo.png";
 import SFULogo from "@/components/icons/SFULogo.png";
 import GojoLogo from "@/components/icons/GojoLogo.png";
@@ -11,13 +12,13 @@ export default function Home() {
   return (
     <main>
       <div className="space-y-1">
-        <p>hi, my name is julian.</p>
-        <p>currently, i&apos;m... </p>
+        <p>Hi! My name is julian.</p>
+        <p>currently, i&apos;m a </p>
 
         <ul className="list-none">
           <li className="flex flex-wrap items-center space-x-1">
             <span>‣</span>
-            <span className="break-words">a comp eng student @</span>
+            <span className="break-words">computer eng student @</span>
             <Image
               src={UWLogo}
               alt="UW Logo"
@@ -39,9 +40,7 @@ export default function Home() {
 
           <li className="flex flex-wrap items-center space-x-1">
             <span>‣</span>
-            <span className="break-words">
-              building fullstack & satellites @
-            </span>
+            <span className="break-words">fullstack eng @</span>
             <Image
               src={OrbitalLogo}
               alt="Orbital Logo"
@@ -57,6 +56,27 @@ export default function Home() {
                 rel="noopener noreferrer"
               >
                 orbital
+              </Link>
+            </span>
+          </li>
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">firmware eng @</span>
+            <Image
+              src={MidSun}
+              alt="Midnight Sun Logo"
+              width={15}
+              height={15}
+              className="w-4 h-4 sm:w-5 sm:h-5"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://www.uwmidsun.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                midsun
               </Link>
             </span>
           </li>
