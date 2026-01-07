@@ -43,6 +43,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --radius: 0.625rem;
   --font-sans: var(--font-raleway);
