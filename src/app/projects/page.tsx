@@ -6,10 +6,36 @@ import ProjectGroup from "@/components/project";
 import UWLogo from "@/components/icons/UWLogo.png"; // placeholder.
 import WiiGym from "@/components/images/WiiGym.png";
 import c2c from "@/components/images/c2c.png";
+import RJ from "@/components/images/RJ.png";
 
 type Project = Parameters<typeof ProjectGroup>[0];
 
 const PROJECTS: Project[] = [
+  {
+    title: "ReelJobs",
+    description:
+      "Brainrot Reels with tech job postings tailored to your resume alongside automatic applying. 3rd place winner at DeltaHacks XII.",
+    techStack: [
+      "React Native",
+      "Expo",
+      "Typescript",
+      "FastAPI",
+      "MongoDB",
+      "Gemini",
+      "DigitalOcean",
+      "Vultr",
+      "Docker",
+    ],
+    image: {
+      src: RJ, // swap to real screenshot
+      alt: "Country to Country visualized.",
+    },
+    links: {
+      live: "https://devpost.com/software/reeljobs",
+      github: "https://github.com/Scr4tch587/DeltaHacks12",
+    },
+    featured: false,
+  },
   {
     title: "c2c",
     description:

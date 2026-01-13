@@ -7,37 +7,37 @@ import MidSun from "@/components/icons/MidSun.png";
 import VayaLogo from "@/components/icons/VayaLogo.png";
 import SFULogo from "@/components/icons/SFULogo.png";
 import GojoLogo from "@/components/icons/GojoLogo.png";
+import Delta from "@/components/icons/Delta.png";
 
 export default function Home() {
   return (
     <main>
       <div className="space-y-1">
-        <p>Hi! My name is julian.</p>
+        <p className="flex flex-wrap items-center gap-1">
+          <span>Hi! My name is Julian Salvador,</span>
+          <span>Comp Eng student @</span>
+
+          <Image
+            src={UWLogo}
+            alt="UW Logo"
+            width={16}
+            height={16}
+            className="inline-block w-4 h-4 sm:w-5 sm:h-5"
+          />
+
+          <Link
+            className="underline"
+            href="https://uwaterloo.ca/electrical-computer-engineering/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            uwaterloo
+          </Link>
+        </p>
+
         <p>currently, i&apos;m a </p>
 
         <ul className="list-none">
-          <li className="flex flex-wrap items-center space-x-1">
-            <span>‣</span>
-            <span className="break-words">computer eng student @</span>
-            <Image
-              src={UWLogo}
-              alt="UW Logo"
-              width={15}
-              height={15}
-              className="w-4 h-4 sm:w-5 sm:h-5"
-            />
-            <span>
-              <Link
-                className="underline"
-                href="https://uwaterloo.ca/electrical-computer-engineering/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                uwaterloo
-              </Link>
-            </span>
-          </li>
-
           <li className="flex flex-wrap items-center space-x-1">
             <span>‣</span>
             <span className="break-words">fullstack eng @</span>
@@ -84,6 +84,28 @@ export default function Home() {
 
         <p>in the past i...</p>
         <ul className="list-none">
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">won top 3 @ </span>
+            <Image
+              src={Delta}
+              alt="Deltahacks Logo"
+              width={25}
+              height={20}
+              className="w-4 h-4 sm:w-4 sm:h-4"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://devpost.com/software/reeljobs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DeltaHacks XII
+              </Link>
+            </span>
+          </li>
+
           <li className="flex flex-wrap items-center space-x-1">
             <span>‣</span>
             <span className="break-words">
