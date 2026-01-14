@@ -14,14 +14,14 @@ export function Navbar() {
 
         {/* Right side - links */}
         <div className="flex items-center gap-2 sm:gap-10">
-          <Link
+          {/* <Link
             href="/resume.pdf"
             target="_blank" // open in a new tab
             rel="noopener noreferrer"
             className="text-sm font-medium hover:underline underline-offset-4"
           >
             resume
-          </Link>
+          </Link> */}
           <Link
             href="/projects"
             className="text-sm font-medium hover:underline underline-offset-4"
