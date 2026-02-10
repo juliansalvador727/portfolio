@@ -77,10 +77,10 @@ export default function ProjectsPage() {
               {p.map((project) => (
                 <li
                   key={project.name}
-                  className="flex flex-wrap items-center space-x-1"
+                  className="flex items-start gap-1"
                 >
-                  <span>‣</span>
-                  <span>
+                  <span className="mt-0.5 shrink-0">‣</span>
+                  <span className="min-w-0 break-words">
                     {project.link ? (
                       <Link
                         className="underline"
@@ -91,12 +91,15 @@ export default function ProjectsPage() {
                         {project.name}
                       </Link>
                     ) : (
-                      <span className="relative inline-block cursor-pointer group">
+                      <button
+                        type="button"
+                        className="relative inline cursor-pointer group"
+                      >
                         <span className="underline">{project.name}</span>
-                        <span className="pointer-events-none absolute left-0 top-full z-10 mt-1 whitespace-nowrap rounded border bg-background px-2 py-1 text-xs opacity-0 transition-opacity duration-200 delay-0 group-hover:opacity-100 group-hover:delay-[1000ms] group-active:opacity-100 group-active:delay-0">
+                        <span className="pointer-events-none absolute left-0 top-full z-10 mt-1 w-max max-w-[calc(100vw-2rem)] whitespace-normal rounded border bg-background px-2 py-1 text-left text-xs opacity-0 transition-opacity duration-200 delay-0 group-hover:opacity-100 group-hover:delay-[1000ms] group-active:opacity-100 group-active:delay-0 group-focus-visible:opacity-100 group-focus-visible:delay-0 sm:max-w-xs sm:whitespace-nowrap">
                           link/source available upon request
                         </span>
-                      </span>
+                      </button>
                     )}
                     <span> — {project.description}</span>
                   </span>
