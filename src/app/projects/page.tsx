@@ -1,96 +1,111 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import ProjectGroup from "@/components/project";
 
-// Replace these with your real images (or use /public paths as strings)
-import UWLogo from "@/components/icons/UWLogo.png"; // placeholder.
-import WiiGym from "@/components/images/WiiGym.png";
-import c2c from "@/components/images/c2c.png";
-import RJ from "@/components/images/RJ.png";
+type Project = {
+  name: string;
+  description: string;
+  link: string | null;
+};
 
-type Project = Parameters<typeof ProjectGroup>[0];
-
-const PROJECTS: Project[] = [
-  {
-    title: "ReelJobs",
-    description:
-      "Brainrot Reels with tech job postings tailored to your resume alongside automatic applying. 3rd place winner at DeltaHacks XII.",
-    techStack: [
-      "React Native",
-      "Expo",
-      "Typescript",
-      "FastAPI",
-      "MongoDB",
-      "Gemini",
-      "DigitalOcean",
-      "Vultr",
-      "Docker",
-    ],
-    image: {
-      src: RJ, // swap to real screenshot
-      alt: "Country to Country visualized.",
+const projects: Record<string, Project[]> = {
+  software: [
+    {
+      name: "axonhh",
+      description: "hodgkin–huxley neuron model solver.",
+      link: "https://github.com/juliansalvador727/axonhh",
     },
-    links: {
-      live: "https://devpost.com/software/reeljobs",
-      github: "https://github.com/Scr4tch587/DeltaHacks12",
+    {
+      name: "emulator",
+      description: "rust nes emulator.",
+      link: "https://github.com/juliansalvador727/emulator",
     },
-    featured: false,
-  },
-  {
-    title: "c2c",
-    description:
-      "Interactive country-to-country shortest-path visualization via BFS.",
-    techStack: ["Next.js", "TypeScript"],
-    image: {
-      src: c2c, // swap to real screenshot
-      alt: "Country to Country visualized.",
+    {
+      name: "reeljobs",
+      description:
+        "ai-generated videos of real job postings + 3rd @ deltahacks XII.",
+      link: "https://devpost.com/software/reeljobs",
     },
-    links: {
-      live: "https://c2c-visualized-v2.vercel.app/",
-      github: "https://github.com/juliansalvador727/c2c_visualized_v2",
+    {
+      name: "c2c",
+      description: "bfs on a world map.",
+      link: "https://c2c-visualized-v2.vercel.app/",
     },
-    featured: false,
-  },
-  {
-    title: "WiiGym",
-    description:
-      "Video calling with pose tracking and a leaderboard to make workouts feel social and competitive.",
-    techStack: ["WebRTC", "MediaPipe", "Websockets", "MongoDB", "Node.js"],
-    image: {
-      src: WiiGym,
-      alt: "WiiGym",
+    {
+      name: "jakegen",
+      description: "jake's resume for people who don't like latex.",
+      link: "https://jake-gen-v2.vercel.app/",
     },
-    links: {
-      github: "https://github.com/sebandx/nwhacks",
-      // demo: "https://...",
+    {
+      name: "quickflix",
+      description: "digital camera photo renamer.",
+      link: "https://github.com/juliansalvador727/quickflix",
     },
-  },
-];
+  ],
+  hardware: [
+    {
+      name: "actuate",
+      description: "rf-based wireless game controller w/ <5ms latency.",
+      link: "https://github.com/juliansalvador727/actuate",
+    },
+    {
+      name: "lumen",
+      description:
+        "500khz bandwidth oscilloscope with lcd display (in progress).",
+      link: "",
+    },
+    {
+      name: "apls",
+      description:
+        "scaleable hospital patient bluetooth esp32 monitoring system.",
+      link: "",
+    },
+    {
+      name: "nfc pcb card",
+      description: "custom pcb with copper antenna sharing contact info.",
+      link: "",
+    },
+  ],
+} as const;
 
 export default function ProjectsPage() {
   return (
-    <>
-      {/* Grid */}
-      <div className="space-y-4">
-        {PROJECTS.map((p) => (
-          <ProjectGroup key={p.title} {...p} />
+    <main>
+      <div className="space-y-1">
+        {Object.entries(projects).map(([c, p]) => (
+          <div key={c}>
+            <p>{c}:</p>
+            <ul className="list-none">
+              {p.map((project) => (
+                <li
+                  key={project.name}
+                  className="flex flex-wrap items-center space-x-1"
+                >
+                  <span>‣</span>
+                  <span>
+                    {project.link ? (
+                      <Link
+                        className="underline"
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.name}
+                      </Link>
+                    ) : (
+                      <span className="relative inline-block cursor-pointer group">
+                        <span className="underline">{project.name}</span>
+                        <span className="pointer-events-none absolute left-0 top-full z-10 mt-1 whitespace-nowrap rounded border bg-background px-2 py-1 text-xs opacity-0 transition-opacity duration-200 delay-0 group-hover:opacity-100 group-hover:delay-[1000ms] group-active:opacity-100 group-active:delay-0">
+                          link/source available upon request
+                        </span>
+                      </span>
+                    )}
+                    <span> — {project.description}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
-
-      {/* Footer CTA */}
-      <p className="text-sm pt-8">
-        For more projects check out my{" "}
-        <span>
-          <Link
-            className="underline"
-            href="https://www.github.com/juliansalvador727"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github.
-          </Link>
-        </span>
-      </p>
-    </>
+    </main>
   );
 }
