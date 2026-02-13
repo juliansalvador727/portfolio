@@ -9,8 +9,13 @@ type Project = {
 const projects: Record<string, Project[]> = {
   software: [
     {
+      name: "izhnet",
+      description: "𝑁-neuron izhikevich network. (in progress)",
+      link: "https://github.com/juliansalvador727/izhnet",
+    },
+    {
       name: "axonhh",
-      description: "hodgkin–huxley neuron model solver.",
+      description: "hodgkin–huxley neuron model solver. (in progress)",
       link: "https://github.com/juliansalvador727/axonhh",
     },
     {
@@ -75,10 +80,7 @@ export default function ProjectsPage() {
             <p>{c}:</p>
             <ul className="list-none">
               {p.map((project) => (
-                <li
-                  key={project.name}
-                  className="flex items-start gap-1"
-                >
+                <li key={project.name} className="flex items-start gap-1">
                   <span className="mt-0.5 shrink-0">‣</span>
                   <span className="min-w-0 break-words">
                     {project.link ? (
