@@ -9,13 +9,23 @@ type Project = {
 const projects: Record<string, Project[]> = {
   software: [
     {
+      name: "vmc",
+      description: "variational monte carlo simulator",
+      link: "https://github.com/UWHPC/Variational-Monte-Carlo",
+    },
+    {
+      name: "genesis",
+      description: "minecraft v1.16.1 seed finder (in progress)",
+      link: "https://github.com/juliansalvador727/genesis",
+    },
+    {
       name: "izhnet",
-      description: "𝑁-neuron izhikevich network. (in progress)",
+      description: "N-neuron izhikevich network",
       link: "https://github.com/juliansalvador727/izhnet",
     },
     {
       name: "axonhh",
-      description: "hodgkin–huxley neuron model solver. (in progress)",
+      description: "hodgkin-huxley neuron model solver. (in progress)",
       link: "https://github.com/juliansalvador727/axonhh",
     },
     {

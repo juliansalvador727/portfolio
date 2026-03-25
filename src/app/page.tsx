@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import DLR from "@/components/icons/DLR.jpg";
 import UWLogo from "@/components/icons/UWLogo.png";
 import OrbitalLogo from "@/components/icons/Orbital.png";
 import MidSun from "@/components/icons/MidSun.png";
@@ -38,6 +39,27 @@ export default function Home() {
         <p>currently, i&apos;m a </p>
 
         <ul className="list-none">
+          <li className="flex flex-wrap items-center space-x-1">
+            <span>‣</span>
+            <span className="break-words">swe intern @</span>
+            <Image
+              src={DLR}
+              alt="DLR Logo"
+              width={15}
+              height={15}
+              className="w-4 h-4 sm:w-5 sm:h-5"
+            />
+            <span>
+              <Link
+                className="underline"
+                href="https://www.dlr.de/en/fk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                dlr
+              </Link>
+            </span>
+          </li>
           <li className="flex flex-wrap items-center space-x-1">
             <span>‣</span>
             <span className="break-words">fullstack eng @</span>
