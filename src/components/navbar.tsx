@@ -29,10 +29,10 @@ export function Navbar() {
             projects
           </Link>
           <Link
-            href="/fun-stuff"
+            href="/writing"
             className="text-sm font-medium hover:underline underline-offset-4"
           >
-            fun stuff
+            writing
           </Link>
           <ModeToggle />
         </div>
