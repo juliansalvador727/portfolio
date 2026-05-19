@@ -117,7 +117,7 @@ export default function SemesterOne() {
           <span className="text-muted-foreground text-sm">Dec 2025</span>
         </div>
         <div className="space-y-3 text-sm leading-relaxed">
-          <p className="font-medium">Check out this video I edited!</p>
+          <p className="font-medium">Check out this video I edited!!</p>
           <YouTubeFacade id="43SANkiLjbQ" />
           <p>
             Writing this has long been overdue. Currently it is the week before

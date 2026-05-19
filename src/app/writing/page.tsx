@@ -8,7 +8,7 @@ type Entry = {
 
 const entries: Entry[] = [
   { title: "1B ECE", href: "/writing/semester-two", date: "Apr 2026" },
-  { title: "Before Germany", href: "/before-germany", date: "Mar 2026" },
+  { title: "Before Germany", href: "/writing/before-germany", date: "Mar 2026" },
   { title: "1A ECE", href: "/writing/semester-one", date: "Dec 2025" },
 ];
 
