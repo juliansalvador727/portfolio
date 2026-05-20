@@ -1,6 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const FoodMap = dynamic(() => import("@/components/food-map"), { ssr: false });
 
 const tiers = [
   {
@@ -63,49 +66,6 @@ function TierList() {
   );
 }
 
-const foodPlaces = [
-  "Kuroki Shabu Shabu",
-  "Watami Sushi",
-  "Kin Gyu",
-  "Gyubee",
-  "Kinton Ramen",
-  "Ajisen Ramen",
-  "The Keg",
-];
-
-function FoodMap() {
-  return (
-    <div className="space-y-2">
-      <div className="rounded overflow-hidden border border-border">
-        <iframe
-          src="https://maps.google.com/maps?q=Waterloo,Ontario,Canada&z=13&output=embed"
-          width="100%"
-          height="280"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Waterloo food map"
-        />
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {foodPlaces.map((place) => (
-          <a
-            key={place}
-            href={`https://www.google.com/maps/search/${encodeURIComponent(
-              place + " Waterloo Ontario"
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs px-2 py-1 rounded border border-border bg-muted/30 hover:bg-muted transition-colors"
-          >
-            {place}
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function SemesterTwo() {
   return (
