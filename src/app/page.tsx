@@ -18,6 +18,7 @@ export default function Home() {
           <span>Hi! My name is Julian Salvador,</span>
           <span>Comp Eng student @</span>
 
+
           <Image
             src={UWLogo}
             alt="UW Logo"
@@ -35,6 +36,8 @@ export default function Home() {
             uwaterloo
           </Link>
         </p>
+
+        <p>i&apos;m interested in embedded software and systems programming.</p>
 
         <p>currently, i&apos;m a </p>
 
