@@ -9,6 +9,11 @@ type Project = {
 const projects: Record<string, Project[]> = {
   software: [
     {
+      name: "goosehunt",
+      description: "waterlooworks scraper + resume matching",
+      link: "https://github.com/juliansalvador727/goosehunt",
+    },
+    {
       name: "vmc",
       description: "variational monte carlo simulator",
       link: "https://github.com/UWHPC/Variational-Monte-Carlo",
