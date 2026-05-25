@@ -9,7 +9,7 @@ export default function BeforeGermany() {
           <span className="text-muted-foreground text-sm">Mar 2026</span>
         </div>
         <div className="space-y-3 text-sm leading-relaxed">
-          <p>Write your co-op reflection here.</p>
+          <p>Many documents.</p>
         </div>
         <Link href="/writing" className="underline text-sm">
           ← back
