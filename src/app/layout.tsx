@@ -1,31 +1,26 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-// components
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { P3RBackground } from "@/components/p3r/background";
+import { P3RHud } from "@/components/p3r/hud";
+import { SoundProvider } from "@/components/p3r/sound";
 
-import { Raleway } from "next/font/google";
+import localFont from "next/font/local";
 
-const raleway = Raleway({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-raleway",
+const rodin = localFont({
+  src: [
+    { path: "./fonts/Rodin-Pro-M.otf", weight: "400", style: "normal" },
+    { path: "./fonts/Rodin-Pro-B.otf", weight: "700", style: "normal" },
+    { path: "./fonts/NewRodin-Pro-EB.otf", weight: "800", style: "normal" },
+    { path: "./fonts/NewRodin-Pro-UB.otf", weight: "900", style: "normal" },
+  ],
+  variable: "--font-rodin",
+  display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://juliansalvador.com"), // <- add this
+  metadataBase: new URL("https://juliansalvador.com"),
   title: "Julian Salvador",
   description: "either building or playing piano",
   openGraph: {
@@ -58,21 +53,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={raleway.className}>
+    <html lang="en" suppressHydrationWarning className={rodin.className}>
       <head>
         <link rel="icon" type="image/svg+xml" href="/jsicon.svg"></link>
       </head>
-      <body className={`${raleway.variable} font-sans antialiased p-3`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main className="mx-auto max-w-xl py-4">{children}</main>
-          <Footer />
-        </ThemeProvider>
+      <body className={`${rodin.variable} font-sans antialiased`}>
+        <SoundProvider>
+          <P3RBackground />
+          <P3RHud />
+          <main>{children}</main>
+        </SoundProvider>
       </body>
     </html>
   );
