@@ -22,25 +22,10 @@ const WEDGE_CLIP = "polygon(0 58%, 100% 0, 80% 100%)";
 
 // Party roster, top-right like the Camp screen.
 const PARTY = [
-  {
-    label: "GitHub",
-    href: "https://github.com/juliansalvador727",
-    icon: Github,
-    hp: "82%",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/juliansalvador727",
-    icon: Linkedin,
-    hp: "67%",
-  },
-  {
-    label: "Email",
-    href: "mailto:jesalvad@uwaterloo.ca",
-    icon: Mail,
-    hp: "91%",
-  },
-  { label: "Resume", href: "/resume", icon: FileText, hp: "74%" },
+  { label: "GitHub", href: "https://github.com/juliansalvador727", icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/juliansalvador727", icon: Linkedin },
+  { label: "Email", href: "mailto:jesalvad@uwaterloo.ca", icon: Mail },
+  { label: "Resume", href: "/resume", icon: FileText },
 ];
 
 // Red crystal shards, like the splash art accents bottom-left of the Camp screen.
@@ -269,46 +254,14 @@ export function MainMenu() {
                 play("move");
               }}
               aria-label={m.label}
-              className="group flex items-center gap-2.5 border-y border-l-2 border-white/20 border-l-p3r-cyan/80 bg-gradient-to-r from-[#0d2fa0]/85 to-[#051657]/90 py-1.5 pl-2.5 pr-3 backdrop-blur-sm transition-all duration-150 hover:translate-x-[-0.4rem] hover:border-l-p3r-pink hover:from-[#7a0020]/90 hover:to-[#3d0014]/90 sm:pr-5"
-              style={{
-                clipPath:
-                  "polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem)",
-              }}
+              className="group block border-y border-l-2 border-white/20 border-l-p3r-cyan/80 bg-gradient-to-r from-[#0d2fa0]/85 to-[#051657]/90 p-1.5 backdrop-blur-sm transition-all duration-150 hover:translate-x-[-0.4rem] hover:border-l-p3r-pink hover:from-[#7a0020]/90 hover:to-[#3d0014]/90"
             >
-              {/* Portrait tile */}
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-p3r-sky/50 bg-gradient-to-b from-p3r-sea to-p3r-ink shadow-[inset_0_0_12px_rgba(70,170,255,0.4)] transition-colors group-hover:border-p3r-pink/70 sm:h-12 sm:w-12">
-                <m.icon className="h-5 w-5 text-p3r-cyan transition-colors group-hover:text-p3r-pink sm:h-6 sm:w-6" />
-              </span>
-
-              <span className="hidden flex-col gap-1 sm:flex">
-                <span className="text-xs font-black uppercase italic leading-none text-white/90 group-hover:text-white">
-                  {m.label}
-                </span>
-                {/* HP/SP-style gauges (decorative) */}
-                <span className="block h-1.5 w-20 -skew-x-12 overflow-hidden bg-black/50">
-                  <span
-                    className="block h-full bg-gradient-to-r from-amber-400 to-yellow-200"
-                    style={{
-                      width: m.hp,
-                      transformOrigin: "left",
-                      animation: `p3r-bar-fill 0.5s cubic-bezier(0.16,1,0.3,1) ${
-                        0.45 + i * 0.08
-                      }s backwards`,
-                    }}
-                  />
-                </span>
-                <span className="block h-1 w-14 -skew-x-12 overflow-hidden bg-black/50">
-                  <span
-                    className="block h-full bg-gradient-to-r from-p3r-cyan to-p3r-sky"
-                    style={{
-                      width: "60%",
-                      transformOrigin: "left",
-                      animation: `p3r-bar-fill 0.5s cubic-bezier(0.16,1,0.3,1) ${
-                        0.55 + i * 0.08
-                      }s backwards`,
-                    }}
-                  />
-                </span>
+              {/* Portrait tile — icon rotated ~−30° like the reference */}
+              <span className="flex h-12 w-12 items-center justify-center border border-p3r-sky/50 bg-gradient-to-b from-p3r-sea to-p3r-ink shadow-[inset_0_0_12px_rgba(70,170,255,0.4)] transition-colors group-hover:border-p3r-pink/70 sm:h-14 sm:w-14">
+                <m.icon
+                  className="h-7 w-7 text-p3r-cyan transition-colors group-hover:text-p3r-pink sm:h-8 sm:w-8"
+                  style={{ transform: "rotate(-30deg)" }}
+                />
               </span>
             </Link>
           </motion.div>
