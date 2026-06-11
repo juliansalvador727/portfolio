@@ -35,8 +35,10 @@ export function P3RHud() {
     (pathname.startsWith("/writing/") ? "Reading entry..." : "Navigating...");
 
   const goBack = useCallback(() => {
+    const href = pathname.startsWith("/writing/") ? "/writing" : "/";
     play("back");
-    router.push(pathname.startsWith("/writing/") ? "/writing" : "/");
+    router.prefetch(href);
+    router.push(href);
   }, [pathname, play, router]);
 
   // ○ Back — Esc returns toward the main menu, like backing out of a submenu.
@@ -58,6 +60,8 @@ export function P3RHud() {
       <div className="p3r-enter-left fixed left-0 top-3 z-50 sm:top-5">
         <Link
           href="/"
+          onMouseEnter={() => router.prefetch("/")}
+          onFocus={() => router.prefetch("/")}
           onClick={() => {
             if (!isHome) play("back");
           }}

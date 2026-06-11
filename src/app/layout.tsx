@@ -4,6 +4,7 @@ import "./globals.css";
 import { P3RBackground } from "@/components/p3r/background";
 import { P3RHud } from "@/components/p3r/hud";
 import { SoundProvider } from "@/components/p3r/sound";
+import { RoutePreloader } from "@/components/route-preloader";
 
 import localFont from "next/font/local";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         <SoundProvider>
           <P3RBackground />
           <P3RHud />
+          <RoutePreloader />
           <main>{children}</main>
         </SoundProvider>
       </body>

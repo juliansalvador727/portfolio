@@ -6,7 +6,6 @@ import DLR from "@/components/icons/DLR.jpg";
 import OrbitalLogo from "@/components/icons/Orbital.png";
 import MidSun from "@/components/icons/MidSun.png";
 import SFULogo from "@/components/icons/SFULogo.png";
-import Delta from "@/components/icons/Delta.png";
 
 export const metadata = { title: "Experience | Julian Salvador" };
 

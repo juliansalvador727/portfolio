@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useP3RSound } from "@/components/p3r/sound";
 
@@ -23,6 +23,13 @@ export default function WritingPage() {
   const router = useRouter();
   const { play } = useP3RSound();
 
+  const prefetchEntry = useCallback(
+    (href: string) => {
+      router.prefetch(href);
+    },
+    [router]
+  );
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown") {
@@ -35,13 +42,18 @@ export default function WritingPage() {
         play("move");
       } else if (e.key === "Enter") {
         e.preventDefault();
+        prefetchEntry(entries[selected].href);
         play("confirm");
         router.push(entries[selected].href);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [play, router, selected]);
+  }, [play, prefetchEntry, router, selected]);
+
+  useEffect(() => {
+    prefetchEntry(entries[selected].href);
+  }, [prefetchEntry, selected]);
 
   return (
     <ul className="space-y-1.5">
@@ -52,10 +64,15 @@ export default function WritingPage() {
             <Link
               href={entry.href}
               onMouseEnter={() => {
+                prefetchEntry(entry.href);
                 if (!active) {
                   setSelected(i);
                   play("move");
                 }
+              }}
+              onFocus={() => {
+                prefetchEntry(entry.href);
+                setSelected(i);
               }}
               onClick={() => play("confirm")}
               className={`relative flex items-center gap-3 px-4 py-2 font-bold transition-colors ${

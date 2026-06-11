@@ -52,6 +52,15 @@ export function MainMenu() {
   const router = useRouter();
   const { play } = useP3RSound();
 
+  const prefetchInternalRoute = useCallback(
+    (href: string) => {
+      if (href.startsWith("/")) {
+        router.prefetch(href);
+      }
+    },
+    [router]
+  );
+
   const move = useCallback(
     (dir: 1 | -1) => {
       setSelected((s) => (s + dir + MENU.length) % MENU.length);
@@ -70,13 +79,18 @@ export function MainMenu() {
         move(-1);
       } else if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
+        prefetchInternalRoute(MENU[selected].href);
         play("confirm");
         router.push(MENU[selected].href);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [move, play, router, selected]);
+  }, [move, play, prefetchInternalRoute, router, selected]);
+
+  useEffect(() => {
+    prefetchInternalRoute(MENU[selected].href);
+  }, [prefetchInternalRoute, selected]);
 
   return (
     <div className="relative flex min-h-dvh items-center overflow-x-clip">
@@ -150,12 +164,16 @@ export function MainMenu() {
                 <Link
                   href={item.href}
                   onMouseEnter={() => {
+                    prefetchInternalRoute(item.href);
                     if (!active) {
                       setSelected(i);
                       play("move");
                     }
                   }}
-                  onFocus={() => setSelected(i)}
+                  onFocus={() => {
+                    prefetchInternalRoute(item.href);
+                    setSelected(i);
+                  }}
                   onClick={() => play("confirm")}
                   className="group relative block w-fit outline-none"
                 >
@@ -225,8 +243,15 @@ export function MainMenu() {
               href={m.href}
               target={m.href.startsWith("http") ? "_blank" : undefined}
               rel={m.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              onClick={() => play("confirm")}
-              onMouseEnter={() => play("move")}
+              onClick={() => {
+                prefetchInternalRoute(m.href);
+                play("confirm");
+              }}
+              onFocus={() => prefetchInternalRoute(m.href)}
+              onMouseEnter={() => {
+                prefetchInternalRoute(m.href);
+                play("move");
+              }}
               aria-label={m.label}
               className="group flex items-center gap-2.5 border-y border-l-2 border-white/20 border-l-p3r-cyan/80 bg-gradient-to-r from-[#0d2fa0]/85 to-[#051657]/90 py-1.5 pl-2.5 pr-3 backdrop-blur-sm transition-all duration-150 hover:translate-x-[-0.4rem] hover:border-l-p3r-pink hover:from-[#7a0020]/90 hover:to-[#3d0014]/90 sm:pr-5"
               style={{
