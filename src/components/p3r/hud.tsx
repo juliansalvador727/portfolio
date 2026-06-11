@@ -118,7 +118,7 @@ export function P3RHud() {
         </div>
       )}
 
-      {isHome && <SpotifyNowPlaying />}
+      <SpotifyNowPlaying visible={isHome} />
 
       {/* Sound toggle */}
       <button

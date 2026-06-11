@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Music2, Pause, Radio } from "lucide-react";
+import { Clock3, ExternalLink, Music2, Pause, Radio } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 type NowPlaying = {
@@ -8,6 +8,7 @@ type NowPlaying = {
   status:
     | "playing"
     | "paused"
+    | "recent"
     | "idle"
     | "ad"
     | "missing_config"
@@ -24,10 +25,66 @@ type NowPlaying = {
   songUrl?: string | null;
   progressMs?: number;
   durationMs?: number;
+  playedAt?: string;
   updatedAt?: string;
 };
 
 const POLL_MS = 30_000;
+const CACHE_KEY = "p3r-spotify-now-playing";
+
+let memoryCache: NowPlaying | null = null;
+
+function isTrackData(
+  data: NowPlaying | null | undefined
+): data is NowPlaying & { title: string } {
+  return Boolean(
+    data?.configured &&
+      data.title &&
+      (data.status === "playing" ||
+        data.status === "paused" ||
+        data.status === "recent")
+  );
+}
+
+function readCachedNowPlaying() {
+  if (isTrackData(memoryCache)) return memoryCache;
+  if (typeof window === "undefined") return null;
+
+  try {
+    const raw = window.localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+
+    const cached = JSON.parse(raw) as NowPlaying;
+    if (!isTrackData(cached)) return null;
+
+    memoryCache = cached;
+    return cached;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedNowPlaying(data: NowPlaying) {
+  if (!isTrackData(data)) return;
+
+  memoryCache = data;
+
+  try {
+    window.localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  } catch {
+    // Storage can be unavailable in private contexts.
+  }
+}
+
+function asLastPlayed(data: NowPlaying, updatedAt?: string): NowPlaying {
+  return {
+    ...data,
+    status: "recent",
+    isPlaying: false,
+    progressMs: data.durationMs ?? data.progressMs ?? 0,
+    updatedAt: updatedAt ?? data.updatedAt,
+  };
+}
 
 function formatTime(ms: number) {
   const totalSeconds = Math.max(0, Math.floor(ms / 1000));
@@ -36,9 +93,16 @@ function formatTime(ms: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export function SpotifyNowPlaying() {
+export function SpotifyNowPlaying({ visible }: { visible: boolean }) {
   const [data, setData] = useState<NowPlaying | null>(null);
   const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const cached = readCachedNowPlaying();
+    if (cached) {
+      setData(asLastPlayed(cached));
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -50,13 +114,34 @@ export function SpotifyNowPlaying() {
         });
         if (!response.ok) return;
         const next = (await response.json()) as NowPlaying;
-        if (!cancelled) setData(next);
+        if (!cancelled) {
+          setData((previous) => {
+            if (isTrackData(next)) {
+              writeCachedNowPlaying(next);
+              return next;
+            }
+
+            const cached = previous ?? readCachedNowPlaying();
+            if (isTrackData(cached)) {
+              return asLastPlayed(cached, next.updatedAt);
+            }
+
+            return next;
+          });
+        }
       } catch {
         if (!cancelled) {
-          setData({
-            configured: true,
-            status: "error",
-            isPlaying: false,
+          setData((previous) => {
+            const cached = previous ?? readCachedNowPlaying();
+            if (isTrackData(cached)) {
+              return asLastPlayed(cached);
+            }
+
+            return {
+              configured: true,
+              status: "error",
+              isPlaying: false,
+            };
           });
         }
       }
@@ -103,6 +188,20 @@ export function SpotifyNowPlaying() {
     data.status === "token_missing" ||
     data.status === "missing_config";
 
+  const signal =
+    data?.status === "playing"
+      ? "Live"
+      : data?.status === "paused"
+        ? "Paused"
+        : data?.status === "recent"
+          ? "Last Played"
+          : "Standby";
+  const SignalIcon =
+    data?.status === "playing" ? Radio : data?.status === "recent" ? Clock3 : Pause;
+  const showProgress = data?.status === "playing" || data?.status === "paused";
+
+  if (!visible || !data) return null;
+
   const body = (
     <div
       className="p3r-enter-left fixed left-3 top-24 z-50 w-[min(calc(100vw-1.5rem),16.5rem)] overflow-hidden border-l-4 border-p3r-cyan/80 bg-gradient-to-r from-[#071a56]/95 via-[#082778]/95 to-[#020b28]/95 text-white shadow-[0_14px_40px_rgba(0,10,50,0.55)] backdrop-blur-sm sm:left-8 sm:top-28"
@@ -138,12 +237,8 @@ export function SpotifyNowPlaying() {
               <span className="block skew-x-12">Spotify</span>
             </span>
             <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest text-p3r-cyan">
-              {data?.isPlaying ? (
-                <Radio className="h-3 w-3" />
-              ) : (
-                <Pause className="h-3 w-3" />
-              )}
-              {data?.isPlaying ? "Live" : "Standby"}
+              <SignalIcon className="h-3 w-3" />
+              {signal}
             </span>
           </div>
 
@@ -169,12 +264,15 @@ export function SpotifyNowPlaying() {
 
           <div className="mt-1.5 flex items-center gap-1.5">
             <span className="w-7 text-[9px] font-bold text-white/55">
-              {formatTime(progress.elapsed)}
+              {showProgress ? formatTime(progress.elapsed) : "last"}
             </span>
             <span className="h-1 min-w-0 flex-1 -skew-x-12 overflow-hidden bg-black/55">
               <span
                 className="block h-full bg-gradient-to-r from-[#1db954] via-p3r-cyan to-white transition-[width] duration-1000"
-                style={{ width: `${progress.percent}%` }}
+                style={{
+                  width:
+                    data?.status === "recent" ? "100%" : `${progress.percent}%`,
+                }}
               />
             </span>
             <span className="w-7 text-right text-[9px] font-bold text-white/55">

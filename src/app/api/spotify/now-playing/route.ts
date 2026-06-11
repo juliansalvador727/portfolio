@@ -39,9 +39,18 @@ type SpotifyCurrentlyPlaying = {
   progress_ms: number | null;
 };
 
+type SpotifyRecentlyPlayed = {
+  items: {
+    track: SpotifyTrack;
+    played_at: string;
+  }[];
+};
+
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_ENDPOINT =
   "https://api.spotify.com/v1/me/player/currently-playing?additional_types=track,episode";
+const RECENTLY_PLAYED_ENDPOINT =
+  "https://api.spotify.com/v1/me/player/recently-played?limit=1";
 
 function json(data: Record<string, unknown>, init?: ResponseInit) {
   return NextResponse.json(data, {
@@ -88,6 +97,72 @@ async function getAccessToken() {
   return { accessToken: data.access_token };
 }
 
+function serializeItem({
+  item,
+  status,
+  isPlaying,
+  progressMs,
+  playedAt,
+}: {
+  item: SpotifyTrack | SpotifyEpisode;
+  status: "playing" | "paused" | "recent";
+  isPlaying: boolean;
+  progressMs: number;
+  playedAt?: string;
+}) {
+  const image =
+    item.type === "track"
+      ? item.album?.images?.[0]?.url
+      : item.show?.images?.[0]?.url;
+
+  return {
+    configured: true,
+    status,
+    isPlaying,
+    itemType: item.type,
+    title: item.name,
+    artists:
+      item.type === "track"
+        ? item.artists?.map((artist) => artist.name).join(", ") ?? ""
+        : item.show?.name ?? "",
+    album: item.type === "track" ? item.album?.name ?? "" : item.show?.name ?? "",
+    albumImageUrl: image ?? null,
+    songUrl: item.external_urls?.spotify ?? null,
+    progressMs,
+    durationMs: item.duration_ms,
+    playedAt,
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+async function getRecentlyPlayed(accessToken: string) {
+  const response = await fetch(RECENTLY_PLAYED_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const data = (await response.json()) as SpotifyRecentlyPlayed;
+  const recent = data.items[0];
+
+  if (!recent?.track) {
+    return null;
+  }
+
+  return serializeItem({
+    item: recent.track,
+    status: "recent",
+    isPlaying: false,
+    progressMs: recent.track.duration_ms,
+    playedAt: recent.played_at,
+  });
+}
+
 export async function GET() {
   try {
     const token = await getAccessToken();
@@ -109,12 +184,14 @@ export async function GET() {
     });
 
     if (response.status === 204 || response.status === 202) {
-      return json({
-        configured: true,
-        status: "idle",
-        isPlaying: false,
-        updatedAt: new Date().toISOString(),
-      });
+      return json(
+        (await getRecentlyPlayed(token.accessToken)) ?? {
+          configured: true,
+          status: "idle",
+          isPlaying: false,
+          updatedAt: new Date().toISOString(),
+        }
+      );
     }
 
     if (response.status === 429) {
@@ -140,36 +217,24 @@ export async function GET() {
     const item = data.item;
 
     if (!item || data.currently_playing_type === "ad") {
-      return json({
-        configured: true,
-        status: data.currently_playing_type === "ad" ? "ad" : "idle",
-        isPlaying: false,
-        updatedAt: new Date().toISOString(),
-      });
+      return json(
+        (await getRecentlyPlayed(token.accessToken)) ?? {
+          configured: true,
+          status: data.currently_playing_type === "ad" ? "ad" : "idle",
+          isPlaying: false,
+          updatedAt: new Date().toISOString(),
+        }
+      );
     }
 
-    const image =
-      item.type === "track"
-        ? item.album?.images?.[0]?.url
-        : item.show?.images?.[0]?.url;
-
-    return json({
-      configured: true,
-      status: data.is_playing ? "playing" : "paused",
-      isPlaying: data.is_playing,
-      itemType: item.type,
-      title: item.name,
-      artists:
-        item.type === "track"
-          ? item.artists?.map((artist) => artist.name).join(", ") ?? ""
-          : item.show?.name ?? "",
-      album: item.type === "track" ? item.album?.name ?? "" : item.show?.name ?? "",
-      albumImageUrl: image ?? null,
-      songUrl: item.external_urls?.spotify ?? null,
-      progressMs: data.progress_ms ?? 0,
-      durationMs: item.duration_ms,
-      updatedAt: new Date().toISOString(),
-    });
+    return json(
+      serializeItem({
+        item,
+        status: data.is_playing ? "playing" : "paused",
+        isPlaying: data.is_playing,
+        progressMs: data.progress_ms ?? 0,
+      })
+    );
   } catch {
     return json({
       configured: true,

@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 
 const DEFAULT_REDIRECT_URI = "http://127.0.0.1:8000/callback";
-const SCOPE = "user-read-currently-playing";
+const SCOPE = "user-read-currently-playing user-read-recently-played";
 
 function loadDotEnv() {
   if (!existsSync(".env")) return {};
