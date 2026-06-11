@@ -9,12 +9,38 @@ import { useP3RSound } from "@/components/p3r/sound";
 
 // Each entry mimics a P3R Skill-menu row: its own shade of blue,
 // slight rotation, and a small horizontal jitter off the center axis.
-const MENU: { label: string; href: string; color: string; rot: number; dx: string; gapBefore?: boolean }[] = [
+const MENU: {
+  label: string;
+  href: string;
+  color: string;
+  rot: number;
+  dx: string;
+  gapBefore?: boolean;
+}[] = [
   { label: "About", href: "/about", color: "#3ecdf3", rot: -5, dx: "0.5rem" },
-  { label: "Projects", href: "/projects", color: "#8feaf9", rot: -9, dx: "-0.75rem" },
-  { label: "Experience", href: "/experience", color: "#b3f4ff", rot: -10, dx: "0.25rem" },
+  {
+    label: "Projects",
+    href: "/projects",
+    color: "#8feaf9",
+    rot: -9,
+    dx: "-0.75rem",
+  },
+  {
+    label: "Experience",
+    href: "/experience",
+    color: "#b3f4ff",
+    rot: -10,
+    dx: "0.25rem",
+  },
   { label: "Writing", href: "/writing", color: "#129fe0", rot: -7, dx: "1rem" },
-  { label: "Contact", href: "/contact", color: "#5fdcf6", rot: 7, dx: "-0.5rem", gapBefore: true },
+  {
+    label: "Contact",
+    href: "/contact",
+    color: "#5fdcf6",
+    rot: 7,
+    dx: "-0.5rem",
+    gapBefore: true,
+  },
 ];
 
 // White selection wedge behind the active item, pink-rimmed like the Camp screen.
@@ -22,19 +48,62 @@ const WEDGE_CLIP = "polygon(0 58%, 100% 0, 80% 100%)";
 
 // Party roster, top-right like the Camp screen.
 const PARTY = [
-  { label: "GitHub", href: "https://github.com/juliansalvador727", icon: Github },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/juliansalvador727", icon: Linkedin },
+  {
+    label: "GitHub",
+    href: "https://github.com/juliansalvador727",
+    icon: Github,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/julian-salvador727",
+    icon: Linkedin,
+  },
   { label: "Email", href: "mailto:jesalvad@uwaterloo.ca", icon: Mail },
   { label: "Resume", href: "/resume", icon: FileText },
 ];
 
 // Red crystal shards, like the splash art accents bottom-left of the Camp screen.
 const SHARDS = [
-  { bottom: "12%", left: "3%", size: 64, rot: "18deg", dur: 9, color: "#e60033" },
-  { bottom: "6%", left: "10%", size: 38, rot: "-24deg", dur: 7, color: "#ff2e6c" },
-  { bottom: "20%", left: "8%", size: 26, rot: "40deg", dur: 11, color: "#ff2e6c" },
-  { bottom: "9%", left: "16%", size: 18, rot: "-8deg", dur: 8, color: "#e60033" },
-  { bottom: "26%", left: "2%", size: 16, rot: "65deg", dur: 10, color: "#b3002a" },
+  {
+    bottom: "12%",
+    left: "3%",
+    size: 64,
+    rot: "18deg",
+    dur: 9,
+    color: "#e60033",
+  },
+  {
+    bottom: "6%",
+    left: "10%",
+    size: 38,
+    rot: "-24deg",
+    dur: 7,
+    color: "#ff2e6c",
+  },
+  {
+    bottom: "20%",
+    left: "8%",
+    size: 26,
+    rot: "40deg",
+    dur: 11,
+    color: "#ff2e6c",
+  },
+  {
+    bottom: "9%",
+    left: "16%",
+    size: 18,
+    rot: "-8deg",
+    dur: 8,
+    color: "#e60033",
+  },
+  {
+    bottom: "26%",
+    left: "2%",
+    size: 16,
+    rot: "65deg",
+    dur: 10,
+    color: "#b3002a",
+  },
 ];
 
 export function MainMenu() {
@@ -48,7 +117,7 @@ export function MainMenu() {
         router.prefetch(href);
       }
     },
-    [router]
+    [router],
   );
 
   const move = useCallback(
@@ -56,7 +125,7 @@ export function MainMenu() {
       setSelected((s) => (s + dir + MENU.length) % MENU.length);
       play("move");
     },
-    [play]
+    [play],
   );
 
   useEffect(() => {
@@ -149,7 +218,10 @@ export function MainMenu() {
                   delay: 0.05 * i,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                style={{ translate: item.dx, marginTop: item.gapBefore ? "1rem" : undefined }}
+                style={{
+                  translate: item.dx,
+                  marginTop: item.gapBefore ? "1rem" : undefined,
+                }}
               >
                 <Link
                   href={item.href}
@@ -243,7 +315,9 @@ export function MainMenu() {
             <Link
               href={m.href}
               target={m.href.startsWith("http") ? "_blank" : undefined}
-              rel={m.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              rel={
+                m.href.startsWith("http") ? "noopener noreferrer" : undefined
+              }
               onClick={() => {
                 prefetchInternalRoute(m.href);
                 play("confirm");

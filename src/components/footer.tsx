@@ -20,7 +20,7 @@ export function Footer() {
 
         {/* LinkedIn */}
         <Link
-          href="https://www.linkedin.com/in/juliansalvador727"
+          href="https://www.linkedin.com/in/julian-salvador727"
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition"
