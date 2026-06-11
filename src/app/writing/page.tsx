@@ -74,7 +74,11 @@ export default function WritingPage() {
                 prefetchEntry(entry.href);
                 setSelected(i);
               }}
-              onClick={() => play("confirm")}
+              onPointerDown={() => prefetchEntry(entry.href)}
+              onClick={() => {
+                prefetchEntry(entry.href);
+                play("confirm");
+              }}
               className={`relative flex items-center gap-3 px-4 py-2 font-bold transition-colors ${
                 active ? "text-black" : "text-white/90"
               }`}

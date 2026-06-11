@@ -63,7 +63,7 @@ export default function RootLayout({
           <P3RBackground />
           <P3RHud />
           <RoutePreloader />
-          <main>{children}</main>
+          <main className="min-h-dvh overflow-x-clip">{children}</main>
         </SoundProvider>
       </body>
     </html>

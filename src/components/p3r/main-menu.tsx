@@ -236,7 +236,11 @@ export function MainMenu() {
                     prefetchInternalRoute(item.href);
                     setSelected(i);
                   }}
-                  onClick={() => play("confirm")}
+                  onPointerDown={() => prefetchInternalRoute(item.href)}
+                  onClick={() => {
+                    prefetchInternalRoute(item.href);
+                    play("confirm");
+                  }}
                   className="group relative block w-fit outline-none"
                   style={{ transform: `rotate(${item.rot}deg)` }}
                 >
@@ -323,6 +327,7 @@ export function MainMenu() {
                 play("confirm");
               }}
               onFocus={() => prefetchInternalRoute(m.href)}
+              onPointerDown={() => prefetchInternalRoute(m.href)}
               onMouseEnter={() => {
                 prefetchInternalRoute(m.href);
                 play("move");

@@ -220,6 +220,81 @@ html {
   }
 }
 
+@keyframes p3r-route-in {
+  from {
+    opacity: 0;
+    transform: translate3d(70px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes p3r-route-in-mobile {
+  from {
+    opacity: 0.88;
+    transform: translate3d(0, 0.35rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes p3r-screen-left-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-7.5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes p3r-screen-title-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes p3r-screen-bar-in {
+  from {
+    transform: skewX(-12deg) scaleX(0);
+  }
+  to {
+    transform: skewX(-12deg) scaleX(1);
+  }
+}
+
+@keyframes p3r-screen-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(5.5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes p3r-screen-mobile-in {
+  from {
+    opacity: 0.9;
+    transform: translate3d(0, 0.45rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* Animated layers */
 .p3r-caustics {
   background-image: url("/p3r/caustics.png");
@@ -308,6 +383,32 @@ html {
   color: transparent;
 }
 
+.p3r-route-enter {
+  animation: p3r-route-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  backface-visibility: hidden;
+}
+
+.p3r-screen-ghost {
+  animation: p3r-screen-left-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  backface-visibility: hidden;
+}
+
+.p3r-screen-bar {
+  animation: p3r-screen-bar-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.p3r-screen-title {
+  animation: p3r-screen-title-in 0.45s 0.06s cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+  backface-visibility: hidden;
+}
+
+.p3r-screen-panel {
+  animation: p3r-screen-panel-in 0.45s 0.12s cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+  backface-visibility: hidden;
+}
+
 /* Mobile performance pass: keep the style, reduce continuous compositing. */
 @media (max-width: 640px) {
   .p3r-mobile-hidden {
@@ -317,6 +418,31 @@ html {
   .p3r-mobile-panel {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+    box-shadow: 0 10px 26px rgba(0, 10, 50, 0.45) !important;
+  }
+
+  .p3r-route-enter {
+    animation: p3r-route-in-mobile 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .p3r-screen-ghost {
+    animation: p3r-screen-mobile-in 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .p3r-screen-bar {
+    animation: none !important;
+    transform: skewX(-12deg) scaleX(1);
+  }
+
+  .p3r-screen-title {
+    animation: p3r-screen-mobile-in 0.16s 0.02s cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+    filter: none !important;
+  }
+
+  .p3r-screen-panel {
+    animation: p3r-screen-mobile-in 0.18s 0.04s cubic-bezier(0.16, 1, 0.3, 1)
+      both;
   }
 
   .p3r-bg-shaft {

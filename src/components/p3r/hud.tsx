@@ -73,6 +73,7 @@ export function P3RHud() {
           href="/"
           onMouseEnter={() => router.prefetch("/")}
           onFocus={() => router.prefetch("/")}
+          onPointerDown={() => router.prefetch("/")}
           onClick={() => {
             if (!isHome) play("back");
           }}
@@ -98,6 +99,7 @@ export function P3RHud() {
             aria-label="Julian Salvador — home"
             onMouseEnter={() => router.prefetch("/")}
             onFocus={() => router.prefetch("/")}
+            onPointerDown={() => router.prefetch("/")}
             onClick={() => {
               if (!isHome) play("back");
             }}
@@ -155,6 +157,9 @@ export function P3RHud() {
           {!isHome && (
             <button
               type="button"
+              onPointerDown={() =>
+                router.prefetch(pathname.startsWith("/writing/") ? "/writing" : "/")
+              }
               onClick={goBack}
               className="flex items-center gap-1.5 text-xs font-bold text-white transition-colors hover:text-p3r-cyan"
             >
