@@ -67,57 +67,55 @@ export function P3RHud() {
 
   return (
     <>
-      {/* Top-right name chip */}
-      <div className="p3r-enter-right fixed right-0 top-3 z-50 sm:top-5">
-        <Link
-          href="/"
-          onMouseEnter={() => router.prefetch("/")}
-          onFocus={() => router.prefetch("/")}
-          onPointerDown={() => router.prefetch("/")}
-          onClick={() => {
-            if (!isHome) play("back");
-          }}
-          className="block bg-white py-1.5 pl-6 pr-4 text-right text-black shadow-[0_4px_18px_rgba(0,20,80,0.45)]"
-          style={{
-            clipPath: "polygon(1rem 0, 100% 0, 100% 100%, 0 100%)",
-          }}
-        >
-          <span className="block text-sm font-black italic leading-none tracking-tight">
-            JULIAN SALVADOR
-          </span>
-          <span className="mt-1 block text-[10px] font-bold uppercase leading-none text-neutral-500">
-            comp eng @ uwaterloo
-          </span>
-        </Link>
-      </div>
+      {isHome && (
+        <>
+          {/* Top-right name chip */}
+          <div className="p3r-enter-right fixed right-0 top-3 z-50 sm:top-5">
+            <Link
+              href="/"
+              onMouseEnter={() => router.prefetch("/")}
+              onFocus={() => router.prefetch("/")}
+              onPointerDown={() => router.prefetch("/")}
+              className="block bg-white py-1.5 pl-6 pr-4 text-right text-black shadow-[0_4px_18px_rgba(0,20,80,0.45)]"
+              style={{
+                clipPath: "polygon(1rem 0, 100% 0, 100% 100%, 0 100%)",
+              }}
+            >
+              <span className="block text-sm font-black italic leading-none tracking-tight">
+                JULIAN SALVADOR
+              </span>
+              <span className="mt-1 block text-[10px] font-bold uppercase leading-none text-neutral-500">
+                comp eng @ uwaterloo
+              </span>
+            </Link>
+          </div>
 
-      {/* Top-left date box, styled like the game's "current wallet" panel */}
-      {today && (
-        <div className="p3r-enter-left fixed left-3 top-3 z-50 sm:left-8 sm:top-6">
-          <Link
-            href="/"
-            aria-label="Julian Salvador — home"
-            onMouseEnter={() => router.prefetch("/")}
-            onFocus={() => router.prefetch("/")}
-            onPointerDown={() => router.prefetch("/")}
-            onClick={() => {
-              if (!isHome) play("back");
-            }}
-            className="block border border-black/70 bg-white px-5 py-2 text-left text-black shadow-[0_4px_18px_rgba(0,20,80,0.45)]"
-          >
-            <span className="flex items-end gap-1.5 leading-none">
-              <span className="text-2xl font-bold tracking-tight sm:text-3xl">
-                {today.date}
-              </span>
-              <span className="pb-0.5 text-sm font-bold text-neutral-500">
-                {today.weekday}
-              </span>
-            </span>
-            <span className="mt-1 block text-[11px] font-bold italic leading-none text-neutral-800">
-              current date
-            </span>
-          </Link>
-        </div>
+          {/* Top-left date box, styled like the game's "current wallet" panel */}
+          {today && (
+            <div className="p3r-enter-left fixed left-3 top-3 z-50 sm:left-8 sm:top-6">
+              <Link
+                href="/"
+                aria-label="Julian Salvador — home"
+                onMouseEnter={() => router.prefetch("/")}
+                onFocus={() => router.prefetch("/")}
+                onPointerDown={() => router.prefetch("/")}
+                className="block border border-black/70 bg-white px-5 py-2 text-left text-black shadow-[0_4px_18px_rgba(0,20,80,0.45)]"
+              >
+                <span className="flex items-end gap-1.5 leading-none">
+                  <span className="text-2xl font-bold tracking-tight sm:text-3xl">
+                    {today.date}
+                  </span>
+                  <span className="pb-0.5 text-sm font-bold text-neutral-500">
+                    {today.weekday}
+                  </span>
+                </span>
+                <span className="mt-1 block text-[11px] font-bold italic leading-none text-neutral-800">
+                  current date
+                </span>
+              </Link>
+            </div>
+          )}
+        </>
       )}
 
       <SpotifyNowPlaying visible={isHome} />

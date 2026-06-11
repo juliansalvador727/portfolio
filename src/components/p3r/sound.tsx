@@ -33,13 +33,13 @@ export function useP3RSound() {
 
 /** Persona-style menu sounds. */
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(true);
   const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
   const clickSoundRef = useRef<HTMLAudioElement | null>(null);
   const backSoundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    setEnabled(localStorage.getItem("p3r-sound") === "on");
+    setEnabled(localStorage.getItem("p3r-sound") !== "off");
   }, []);
 
   useEffect(() => {
