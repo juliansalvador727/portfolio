@@ -39,3 +39,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local assistant/editor state
+.agents/
+.codex/
+.claude/
+
+# raw/reference assets
+/p3rfonts/
+/p3ruis/
+/Persona 3 Reload*.mp4
+
+# source copies; app serves the committed copies from /public/p3r
+/hoversoundeffect.wav
+/onclick.wav
+
+# raw P3R asset dump
+# Keep only the moon atlas currently imported by the calendar HUD.
+/UI/*
+!/UI/Field/
+/UI/Field/*
+!/UI/Field/Day/
+/UI/Field/Day/*
+!/UI/Field/Day/T_UI_Field_Day_00_texture.png
