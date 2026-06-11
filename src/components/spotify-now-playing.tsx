@@ -105,6 +105,8 @@ export function SpotifyNowPlaying({ visible }: { visible: boolean }) {
   }, []);
 
   useEffect(() => {
+    if (!visible) return;
+
     let cancelled = false;
 
     async function load() {
@@ -154,12 +156,14 @@ export function SpotifyNowPlaying({ visible }: { visible: boolean }) {
       cancelled = true;
       window.clearInterval(interval);
     };
-  }, []);
+  }, [visible]);
 
   useEffect(() => {
+    if (!visible) return;
+
     const interval = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(interval);
-  }, []);
+  }, [visible]);
 
   const progress = useMemo(() => {
     if (!data?.durationMs || data.progressMs == null) {
@@ -204,7 +208,7 @@ export function SpotifyNowPlaying({ visible }: { visible: boolean }) {
 
   const body = (
     <div
-      className="p3r-enter-left fixed left-3 top-24 z-50 w-[min(calc(100vw-1.5rem),16.5rem)] overflow-hidden border-l-4 border-p3r-cyan/80 bg-gradient-to-r from-[#071a56]/95 via-[#082778]/95 to-[#020b28]/95 text-white shadow-[0_14px_40px_rgba(0,10,50,0.55)] backdrop-blur-sm sm:left-8 sm:top-28"
+      className="p3r-enter-left p3r-mobile-panel fixed left-3 top-24 z-50 w-[min(calc(100vw-1.5rem),16.5rem)] overflow-hidden border-l-4 border-p3r-cyan/80 bg-gradient-to-r from-[#071a56]/95 via-[#082778]/95 to-[#020b28]/95 text-white shadow-[0_14px_40px_rgba(0,10,50,0.55)] backdrop-blur-sm sm:left-8 sm:top-28"
       style={{
         clipPath:
           "polygon(0 0, calc(100% - 1.1rem) 0, 100% 1.1rem, 100% 100%, 1.1rem 100%, 0 calc(100% - 1.1rem))",

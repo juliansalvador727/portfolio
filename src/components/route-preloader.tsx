@@ -67,17 +67,35 @@ function prefetchAsset(href: string) {
   document.head.appendChild(link);
 }
 
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 640px)").matches;
+}
+
+function getSaveDataPreference() {
+  const connection = (
+    navigator as Navigator & {
+      connection?: { saveData?: boolean };
+    }
+  ).connection;
+
+  return Boolean(connection?.saveData);
+}
+
 export function RoutePreloader() {
   const router = useRouter();
 
   useEffect(() => {
     const timers: number[] = [];
+    const mobile = isMobileViewport();
+    const saveData = getSaveDataPreference();
+    const routeDelay = mobile || saveData ? 900 : 250;
+    const routeSpacing = mobile || saveData ? 140 : 45;
 
     ROUTES_TO_PRELOAD.forEach((route, index) => {
       timers.push(
         window.setTimeout(() => {
           router.prefetch(route);
-        }, 250 + index * 45)
+        }, routeDelay + index * routeSpacing)
       );
     });
 
@@ -85,14 +103,16 @@ export function RoutePreloader() {
       window.setTimeout(() => {
         STATIC_IMAGES_TO_PRELOAD.forEach((image) => warmImage(image.src));
         PUBLIC_ASSETS_TO_PREFETCH.forEach(prefetchAsset);
-      }, 700)
+      }, mobile || saveData ? 1600 : 700)
     );
 
-    timers.push(
-      window.setTimeout(() => {
-        void import("@/components/food-map");
-      }, 1100)
-    );
+    if (!mobile && !saveData) {
+      timers.push(
+        window.setTimeout(() => {
+          void import("@/components/food-map");
+        }, 1100)
+      );
+    }
 
     return () => {
       timers.forEach((timer) => window.clearTimeout(timer));

@@ -41,7 +41,7 @@ export function P3RBackground() {
 
       {/* Light shafts */}
       <div
-        className="absolute -inset-y-10 left-[12%] w-[14%] blur-2xl"
+        className="p3r-bg-shaft absolute -inset-y-10 left-[12%] w-[14%] blur-2xl"
         style={{
           background:
             "linear-gradient(to bottom, rgba(120,200,255,0.28), transparent 65%)",
@@ -49,7 +49,7 @@ export function P3RBackground() {
         }}
       />
       <div
-        className="absolute -inset-y-10 left-[55%] w-[22%] blur-3xl"
+        className="p3r-bg-shaft absolute -inset-y-10 left-[55%] w-[22%] blur-3xl"
         style={{
           background:
             "linear-gradient(to bottom, rgba(90,180,255,0.22), transparent 70%)",
@@ -65,7 +65,9 @@ export function P3RBackground() {
       {BUBBLES.map((b, i) => (
         <span
           key={i}
-          className="absolute rounded-full"
+          className={`p3r-bg-bubble absolute rounded-full ${
+            i > 3 ? "p3r-mobile-hidden" : ""
+          }`}
           style={
             {
               left: b.left,
@@ -87,7 +89,7 @@ export function P3RBackground() {
       {SHARDS.map((s, i) => (
         <span
           key={i}
-          className="absolute border-2 border-white"
+          className="p3r-bg-shard p3r-mobile-hidden absolute border-2 border-white"
           style={{
             top: s.top,
             left: s.left,

@@ -178,7 +178,7 @@ export function MainMenu() {
         <span
           key={i}
           aria-hidden
-          className="pointer-events-none absolute"
+          className="p3r-mobile-hidden pointer-events-none absolute"
           style={{
             bottom: s.bottom,
             left: s.left,
@@ -328,7 +328,7 @@ export function MainMenu() {
                 play("move");
               }}
               aria-label={m.label}
-              className="group block border-y border-l-2 border-white/20 border-l-p3r-cyan/80 bg-gradient-to-r from-[#0d2fa0]/85 to-[#051657]/90 p-1.5 backdrop-blur-sm transition-all duration-150 hover:translate-x-[-0.4rem] hover:border-l-p3r-pink hover:from-[#7a0020]/90 hover:to-[#3d0014]/90"
+              className="p3r-mobile-panel group block border-y border-l-2 border-white/20 border-l-p3r-cyan/80 bg-gradient-to-r from-[#0d2fa0]/85 to-[#051657]/90 p-1.5 backdrop-blur-sm transition-all duration-150 hover:translate-x-[-0.4rem] hover:border-l-p3r-pink hover:from-[#7a0020]/90 hover:to-[#3d0014]/90"
             >
               {/* Portrait tile — icon rotated ~−30° like the reference */}
               <span className="flex h-12 w-12 items-center justify-center border border-p3r-sky/50 bg-gradient-to-b from-p3r-sea to-p3r-ink shadow-[inset_0_0_12px_rgba(70,170,255,0.4)] transition-colors group-hover:border-p3r-pink/70 sm:h-14 sm:w-14">

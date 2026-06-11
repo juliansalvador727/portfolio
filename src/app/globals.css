@@ -308,6 +308,67 @@ html {
   color: transparent;
 }
 
+/* Mobile performance pass: keep the style, reduce continuous compositing. */
+@media (max-width: 640px) {
+  .p3r-mobile-hidden {
+    display: none !important;
+  }
+
+  .p3r-mobile-panel {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .p3r-bg-shaft {
+    animation: none !important;
+    filter: none !important;
+    opacity: 0.38 !important;
+    transform: skewX(-12deg);
+  }
+
+  .p3r-caustics {
+    animation: none !important;
+    background-size: 900px 900px;
+    mix-blend-mode: normal;
+    opacity: 0.1 !important;
+  }
+
+  .p3r-caustics-2 {
+    display: none !important;
+  }
+
+  .p3r-bg-bubble {
+    animation: none !important;
+    opacity: 0.16 !important;
+    transform: translateY(78vh) scale(0.9);
+    will-change: auto !important;
+  }
+
+  .p3r-bg-shard {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  .p3r-scanlines {
+    opacity: 0.28 !important;
+  }
+
+  .p3r-stripes {
+    opacity: 0.18 !important;
+  }
+
+  .p3r-shine::after {
+    animation: none !important;
+    opacity: 0.45;
+  }
+
+  .p3r-enter-right,
+  .p3r-enter-left,
+  .p3r-enter-up {
+    animation-duration: 0.24s;
+  }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .p3r-caustics,
