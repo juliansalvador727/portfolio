@@ -38,9 +38,11 @@ const STATIC_IMAGES_TO_PRELOAD: StaticImageData[] = [
 ];
 
 const PUBLIC_ASSETS_TO_PREFETCH = [
+  "/about-photo.jpg",
   "/p3r/caustics.png",
   "/p3r/hoversoundeffect.wav",
   "/p3r/onclick.wav",
+  "/p3r/goback.wav",
 ];
 
 const warmedImages = new Set<string>();

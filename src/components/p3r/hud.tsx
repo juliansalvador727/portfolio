@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useP3RSound } from "@/components/p3r/sound";
+import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
 
 const GUIDE_TEXT: Record<string, string> = {
   "/": "What do you want to do?",
@@ -116,6 +117,8 @@ export function P3RHud() {
           </Link>
         </div>
       )}
+
+      <SpotifyNowPlaying visible={isHome} />
 
       {/* Sound toggle */}
       <button

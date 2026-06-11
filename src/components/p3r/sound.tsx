@@ -19,6 +19,7 @@ type SoundContextValue = {
 
 const HOVER_SOUND_SRC = "/p3r/hoversoundeffect.wav";
 const CLICK_SOUND_SRC = "/p3r/onclick.wav";
+const BACK_SOUND_SRC = "/p3r/goback.wav";
 
 const SoundContext = createContext<SoundContextValue>({
   enabled: false,
@@ -33,9 +34,9 @@ export function useP3RSound() {
 /** Persona-style menu sounds. */
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [enabled, setEnabled] = useState(false);
-  const ctxRef = useRef<AudioContext | null>(null);
   const hoverSoundRef = useRef<HTMLAudioElement | null>(null);
   const clickSoundRef = useRef<HTMLAudioElement | null>(null);
+  const backSoundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setEnabled(localStorage.getItem("p3r-sound") === "on");
@@ -44,18 +45,24 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const hoverSound = new Audio(HOVER_SOUND_SRC);
     const clickSound = new Audio(CLICK_SOUND_SRC);
+    const backSound = new Audio(BACK_SOUND_SRC);
     hoverSound.preload = "auto";
     clickSound.preload = "auto";
+    backSound.preload = "auto";
     hoverSound.volume = 0.6;
     clickSound.volume = 0.7;
+    backSound.volume = 0.7;
     hoverSoundRef.current = hoverSound;
     clickSoundRef.current = clickSound;
+    backSoundRef.current = backSound;
 
     return () => {
       hoverSound.pause();
       clickSound.pause();
+      backSound.pause();
       hoverSoundRef.current = null;
       clickSoundRef.current = null;
+      backSoundRef.current = null;
     };
   }, []);
 
@@ -87,27 +94,10 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
           return;
         }
 
-        const Ctor =
-          window.AudioContext ??
-          (window as unknown as { webkitAudioContext: typeof AudioContext })
-            .webkitAudioContext;
-        ctxRef.current ??= new Ctor();
-        const ctx = ctxRef.current;
-        if (ctx.state === "suspended") void ctx.resume();
-
-        const t = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.type = "square";
-        osc.frequency.setValueAtTime(440, t);
-        osc.frequency.exponentialRampToValueAtTime(220, t + 0.09);
-        gain.gain.setValueAtTime(0.04, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
-        osc.start(t);
-        osc.stop(t + 0.11);
+        const backSound = backSoundRef.current ?? new Audio(BACK_SOUND_SRC);
+        backSoundRef.current = backSound;
+        backSound.currentTime = 0;
+        void backSound.play().catch(() => {});
       } catch {
         // Audio unavailable — stay silent.
       }

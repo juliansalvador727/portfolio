@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -53,6 +54,7 @@ next-env.d.ts
 # source copies; app serves the committed copies from /public/p3r
 /hoversoundeffect.wav
 /onclick.wav
+/goback.wav
 
 # raw P3R asset dump
 # Keep only the moon atlas currently imported by the calendar HUD.

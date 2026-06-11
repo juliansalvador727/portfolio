@@ -67,24 +67,26 @@ export default function AboutPage() {
               "polygon(0 0, 100% 0, 100% calc(100% - 1.6rem), calc(100% - 1.6rem) 100%, 0 100%)",
           }}
         >
-          <div className="mx-auto flex h-28 w-28 -skew-x-6 items-center justify-center border-2 border-p3r-cyan/70 bg-p3r-ink/70 shadow-[0_0_24px_rgba(53,224,255,0.35)]">
-            <span className="skew-x-6 text-5xl font-black italic text-white">
-              JS
-            </span>
+          <div className="relative mx-auto h-32 w-32 -skew-x-6 overflow-hidden border-2 border-p3r-cyan/70 bg-p3r-ink/70 shadow-[0_0_24px_rgba(53,224,255,0.35)]">
+            <Image
+              src="/about-photo.jpg"
+              alt="Julian Salvador"
+              width={160}
+              height={160}
+              priority
+              className="h-full w-full skew-x-6 scale-110 object-cover"
+            />
           </div>
           <p className="mt-4 text-xl font-black uppercase italic leading-tight text-white">
             Julian Salvador
           </p>
-          <p className="mt-1 text-xs font-bold uppercase tracking-widest text-p3r-sky">
-            Arcana: The Engineer
-          </p>
           <div className="mt-4 space-y-1 text-left text-xs text-white/75">
             <p className="flex justify-between border-b border-white/10 pb-1">
-              <span className="font-bold uppercase">Class</span>
+              <span className="font-bold uppercase">Program</span>
               <span>Comp Eng</span>
             </p>
-            <p className="flex justify-between border-b border-white/10 pb-1">
-              <span className="font-bold uppercase">Guild</span>
+            <p className="flex justify-between">
+              <span className="font-bold uppercase">Uni</span>
               <span className="inline-flex items-center gap-1">
                 <Image
                   src={UWLogo}
@@ -102,10 +104,6 @@ export default function AboutPage() {
                   uwaterloo
                 </Link>
               </span>
-            </p>
-            <p className="flex justify-between">
-              <span className="font-bold uppercase">Side quest</span>
-              <span>piano</span>
             </p>
           </div>
         </div>
