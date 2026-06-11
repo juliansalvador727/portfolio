@@ -7,13 +7,18 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { useP3RSound } from "@/components/p3r/sound";
 
-const MENU = [
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Experience", href: "/experience" },
-  { label: "Writing", href: "/writing" },
-  { label: "Contact", href: "/contact" },
+// Each entry mimics a P3R Skill-menu row: its own shade of blue,
+// slight rotation, and a small horizontal jitter off the center axis.
+const MENU: { label: string; href: string; color: string; rot: number; dx: string; gapBefore?: boolean }[] = [
+  { label: "About", href: "/about", color: "#3ecdf3", rot: -5, dx: "0.5rem" },
+  { label: "Projects", href: "/projects", color: "#8feaf9", rot: -9, dx: "-0.75rem" },
+  { label: "Experience", href: "/experience", color: "#b3f4ff", rot: -10, dx: "0.25rem" },
+  { label: "Writing", href: "/writing", color: "#129fe0", rot: -7, dx: "1rem" },
+  { label: "Contact", href: "/contact", color: "#5fdcf6", rot: 7, dx: "-0.5rem", gapBefore: true },
 ];
+
+// White selection wedge behind the active item, pink-rimmed like the Camp screen.
+const WEDGE_CLIP = "polygon(0 58%, 100% 0, 80% 100%)";
 
 // Party roster, top-right like the Camp screen.
 const PARTY = [
@@ -144,9 +149,9 @@ export function MainMenu() {
         MENU
       </span>
 
-      {/* Menu list — items cascade diagonally down-right */}
+      {/* Menu list — center-stacked column, each row jittered and tilted */}
       <nav className="relative z-10 mx-auto w-full max-w-3xl px-10 sm:px-16">
-        <ul className="flex flex-col gap-1 sm:gap-1.5">
+        <ul className="flex flex-col items-center gap-0.5 sm:gap-1">
           {MENU.map((item, i) => {
             const active = i === selected;
             return (
@@ -159,7 +164,7 @@ export function MainMenu() {
                   delay: 0.05 * i,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                style={{ marginLeft: `${i * 5.5}%` }}
+                style={{ translate: item.dx, marginTop: item.gapBefore ? "1rem" : undefined }}
               >
                 <Link
                   href={item.href}
@@ -176,8 +181,9 @@ export function MainMenu() {
                   }}
                   onClick={() => play("confirm")}
                   className="group relative block w-fit outline-none"
+                  style={{ transform: `rotate(${item.rot}deg)` }}
                 >
-                  {/* Red selection slab slides between items */}
+                  {/* White selection wedge with pink rim slides between items */}
                   {active && (
                     <motion.span
                       layoutId="menu-cursor"
@@ -186,34 +192,44 @@ export function MainMenu() {
                         stiffness: 600,
                         damping: 38,
                       }}
-                      className="p3r-shine absolute -inset-x-4 -inset-y-1 -skew-x-12 overflow-hidden bg-gradient-to-r from-p3r-red via-p3r-pink to-p3r-red shadow-[0_0_30px_rgba(230,0,51,0.65)]"
-                    />
-                  )}
-
-                  {/* Cursor caret */}
-                  {active && (
-                    <span
                       aria-hidden
-                      className="absolute -left-9 top-1/2 -translate-y-1/2 text-xl text-white"
-                      style={{ animation: "p3r-cursor 0.8s ease-in-out infinite" }}
+                      className="absolute -bottom-0.5 -right-10 -top-6 left-[32%] sm:-right-16 sm:-top-8"
+                      style={{
+                        filter:
+                          "drop-shadow(0 0 6px rgba(255,84,191,0.85)) drop-shadow(0 0 18px rgba(255,46,150,0.5))",
+                      }}
                     >
-                      ▶
-                    </span>
+                      <span
+                        className="absolute inset-0 bg-[#ff9adf]"
+                        style={{
+                          clipPath: WEDGE_CLIP,
+                          transform: "scale(1.05)",
+                        }}
+                      />
+                      <span
+                        className="absolute inset-0 bg-white"
+                        style={{ clipPath: WEDGE_CLIP }}
+                      />
+                    </motion.span>
                   )}
 
                   <span
-                    className={`relative block text-4xl font-black italic uppercase leading-[1.05] tracking-tight transition-transform duration-150 sm:text-6xl ${
+                    className={`relative block font-black italic uppercase leading-[0.95] tracking-tight transition-transform duration-150 ${
                       active
-                        ? "scale-105 text-white drop-shadow-[0_2px_0_rgba(120,0,30,0.8)]"
-                        : "text-p3r-blue group-hover:text-p3r-sky"
+                        ? "scale-110 text-5xl text-[#f80000] sm:text-7xl"
+                        : "text-4xl group-hover:brightness-125 sm:text-6xl"
                     }`}
                     style={
                       active
-                        ? undefined
+                        ? {
+                            // Black duplicate peeking out above-right, like SKILL
+                            textShadow: "5px -7px 0 #0c0c0e",
+                          }
                         : {
-                            // Chromatic split: dark blue one way, red fringe the other
+                            color: item.color,
+                            // Deep navy drop shadow, offset down-left
                             textShadow:
-                              "3px 3px 0 rgba(2,17,55,0.9), -2px 1px 0 rgba(230,0,51,0.5), -4px 2px 8px rgba(255,46,108,0.25)",
+                              "-5px 7px 0 rgba(0,48,176,0.95), -2px 3px 0 rgba(0,22,110,0.6)",
                           }
                     }
                   >
