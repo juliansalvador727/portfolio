@@ -6,8 +6,9 @@ name: Sync Spotify
 
 on:
   schedule:
-    # Hourly, on the hour (UTC). GitHub may delay scheduled runs under load.
-    - cron: "0 * * * *"
+    # Hourly at :23 (UTC). Avoids the top-of-hour congestion that causes
+    # GitHub to delay or silently drop scheduled runs under load.
+    - cron: "23 * * * *"
   # Lets you trigger a sync on demand from the Actions tab.
   workflow_dispatch:
 
