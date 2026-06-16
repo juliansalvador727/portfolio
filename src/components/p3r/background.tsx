@@ -1,11 +1,22 @@
 "use client";
 
 /**
- * Full-screen layered P3R underwater backdrop:
- * gradient sea -> light shafts -> two parallax caustics layers ->
- * rising bubbles -> drifting geometric accents -> scanlines.
- * Pure CSS animations (transform/background-position only).
+ * Full-screen P3R "Now Loading" underwater backdrop, rebuilt from the original
+ * `menu_loading.mp4` using stitched /UI assets (see ASSETS.MD):
+ *
+ *   white fade-in -> authentic water gradient (colors sampled from the video)
+ *   -> bright rippling surface band (caustics + stitched loading gradient)
+ *   -> descending light shafts -> two parallax caustics layers
+ *   -> rising bubbles -> depth murk + vignette.
+ *
+ * Pure CSS animations (transform / background-position / opacity only).
  */
+
+// Top -> bottom color stops sampled straight from menu_loading.mp4's clean water.
+const WATER_GRADIENT =
+  "linear-gradient(to bottom," +
+  "#22fffc 0%,#4cfffd 11%,#148be5 24%,#0d5dc4 40%," +
+  "#053eb9 55%,#0527b2 70%,#030dae 85%,#0500a8 100%)";
 
 const BUBBLES = [
   { left: "6%", size: 10, dur: 19, delay: 0, opacity: 0.35, drift: "2rem" },
@@ -21,43 +32,58 @@ const BUBBLES = [
   { left: "93%", size: 15, dur: 24, delay: 5, opacity: 0.28, drift: "-3rem" },
 ];
 
-const SHARDS = [
-  { top: "16%", left: "78%", size: 130, dur: 52, opacity: 0.1 },
-  { top: "64%", left: "8%", size: 90, dur: 44, opacity: 0.12 },
-  { top: "78%", left: "70%", size: 160, dur: 70, opacity: 0.08 },
+// Descending light shafts (god rays from the surface).
+const SHAFTS = [
+  { left: "10%", width: "13%", dur: 13, delay: 0, from: "rgba(150,245,255,0.30)" },
+  { left: "30%", width: "9%", dur: 17, delay: -5, from: "rgba(120,220,255,0.20)" },
+  { left: "54%", width: "20%", dur: 15, delay: -4, from: "rgba(110,210,255,0.22)" },
+  { left: "80%", width: "11%", dur: 19, delay: -8, from: "rgba(150,245,255,0.26)" },
 ];
 
 export function P3RBackground() {
   return (
-    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
-      {/* Sea gradient */}
+    <div
+      aria-hidden
+      className="p3r-bg-in fixed inset-0 -z-10 overflow-hidden"
+    >
+      {/* Water body gradient (sampled from menu_loading.mp4) */}
+      <div className="absolute inset-0" style={{ background: WATER_GRADIENT }} />
+
+      {/* Stitched P3R loading gradient as surface light (Loading atlas, blue panel) */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-x-0 top-0 h-[28%]"
         style={{
-          background:
-            "radial-gradient(120% 90% at 50% -10%, #1469d6 0%, #0a45a8 38%, #052a76 64%, #021137 100%)",
+          backgroundImage: "url(/p3r/loading-gradient.png)",
+          backgroundSize: "100% 100%",
+          mixBlendMode: "screen",
+          opacity: 0.45,
+          WebkitMaskImage:
+            "linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)",
         }}
       />
 
-      {/* Light shafts */}
-      <div
-        className="p3r-bg-shaft absolute -inset-y-10 left-[12%] w-[14%] blur-2xl"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(120,200,255,0.28), transparent 65%)",
-          animation: "p3r-sway 11s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="p3r-bg-shaft absolute -inset-y-10 left-[55%] w-[22%] blur-3xl"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(90,180,255,0.22), transparent 70%)",
-          animation: "p3r-sway 15s ease-in-out -4s infinite",
-        }}
-      />
+      {/* Descending light shafts */}
+      {SHAFTS.map((s, i) => (
+        <div
+          key={i}
+          className={`p3r-bg-shaft absolute -top-10 bottom-0 blur-2xl ${
+            i > 1 ? "p3r-mobile-hidden" : ""
+          }`}
+          style={{
+            left: s.left,
+            width: s.width,
+            background: `linear-gradient(to bottom, ${s.from}, transparent 70%)`,
+            animation: `p3r-sway ${s.dur}s ease-in-out ${s.delay}s infinite`,
+            willChange: "transform",
+          }}
+        />
+      ))}
 
-      {/* Parallax caustics */}
+      {/* Bright rippling water surface (caustics band at the top) */}
+      <div className="p3r-surface absolute inset-x-0 top-0 h-[36%]" />
+
+      {/* Parallax caustics through the water body */}
       <div className="p3r-caustics absolute inset-0 opacity-25" />
       <div className="p3r-caustics-2 absolute inset-0 opacity-15" />
 
@@ -85,34 +111,15 @@ export function P3RBackground() {
         />
       ))}
 
-      {/* Slow-rotating geometric shards */}
-      {SHARDS.map((s, i) => (
-        <span
-          key={i}
-          className="p3r-bg-shard p3r-mobile-hidden absolute border-2 border-white"
-          style={{
-            top: s.top,
-            left: s.left,
-            width: s.size,
-            height: s.size,
-            opacity: s.opacity,
-            clipPath: "polygon(50% 0, 100% 38%, 78% 100%, 10% 84%)",
-            animation: `p3r-spin ${s.dur}s linear infinite`,
-            willChange: "transform",
-          }}
-        />
-      ))}
+      {/* Faint scanlines (keeps the site's game-UI texture) */}
+      <div className="p3r-scanlines absolute inset-0 opacity-30" />
 
-      {/* Diagonal hatch + scanlines */}
-      <div className="p3r-stripes absolute inset-0 opacity-40" />
-      <div className="p3r-scanlines absolute inset-0 opacity-60" />
-
-      {/* Vignette */}
+      {/* Depth murk toward the abyss + vignette */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(110% 110% at 50% 50%, transparent 55%, rgba(1,8,28,0.55) 100%)",
+            "radial-gradient(125% 100% at 50% 8%, transparent 42%, rgba(2,8,52,0.5) 100%)",
         }}
       />
     </div>
