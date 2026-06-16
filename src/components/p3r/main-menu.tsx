@@ -33,6 +33,7 @@ const MENU: {
     dx: "0.25rem",
   },
   { label: "Writing", href: "/writing", color: "#129fe0", rot: -7, dx: "1rem" },
+  { label: "Music", href: "/music", color: "#6fd8f2", rot: -4, dx: "-0.25rem" },
   {
     label: "Contact",
     href: "/contact",

@@ -1,0 +1,13 @@
+rules_version = '2';
+
+// Listening-history data is read and written exclusively by the server using
+// the Firebase Admin SDK, which bypasses these rules. No client (browser) ever
+// touches Firestore directly, so deny all client access. Analytics does not use
+// Firestore and is unaffected.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

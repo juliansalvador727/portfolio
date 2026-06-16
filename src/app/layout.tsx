@@ -5,6 +5,7 @@ import { P3RBackground } from "@/components/p3r/background";
 import { P3RHud } from "@/components/p3r/hud";
 import { SoundProvider } from "@/components/p3r/sound";
 import { RoutePreloader } from "@/components/route-preloader";
+import { FirebaseAnalytics } from "@/components/firebase-analytics";
 
 import localFont from "next/font/local";
 
@@ -63,6 +64,7 @@ export default function RootLayout({
           <P3RBackground />
           <P3RHud />
           <RoutePreloader />
+          <FirebaseAnalytics />
           <main className="min-h-dvh overflow-x-clip">{children}</main>
         </SoundProvider>
       </body>

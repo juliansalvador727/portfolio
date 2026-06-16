@@ -15,6 +15,7 @@ const GUIDE_TEXT: Record<string, string> = {
   "/resume": "Obtain the official document?",
   "/contact": "How do you want to reach out?",
   "/writing": "Which entry do you want to read?",
+  "/music": "What have you been listening to?",
 };
 
 function ButtonGlyph({ label }: { label: string }) {

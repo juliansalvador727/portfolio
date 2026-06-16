@@ -22,6 +22,7 @@ const ROUTES_TO_PRELOAD = [
   "/writing/semester-two",
   "/writing/before-germany",
   "/writing/semester-one",
+  "/music",
   "/contact",
   "/resume",
 ];

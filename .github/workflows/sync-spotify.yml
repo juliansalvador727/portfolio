@@ -1,0 +1,35 @@
+name: Sync Spotify
+
+# Writes recent Spotify plays into Firestore by hitting the deployed
+# /api/syncSpotify route. This runs the sync independently of Vercel Cron, so
+# it works on any Vercel plan (including Hobby's once-per-day cron limit).
+
+on:
+  schedule:
+    # Hourly, on the hour (UTC). GitHub may delay scheduled runs under load.
+    - cron: "0 * * * *"
+  # Lets you trigger a sync on demand from the Actions tab.
+  workflow_dispatch:
+
+# If a run is still going when the next one fires, skip the new one.
+concurrency:
+  group: sync-spotify
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger /api/syncSpotify
+        env:
+          # Override SITE_URL via a repo variable if your domain differs.
+          SITE_URL: ${{ vars.SITE_URL || 'https://juliansalvador.com' }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::CRON_SECRET repo secret is not set."
+            exit 1
+          fi
+          curl -fsS --retry 3 --retry-delay 10 -X POST \
+            "$SITE_URL/api/syncSpotify" \
+            -H "Authorization: Bearer $CRON_SECRET"
