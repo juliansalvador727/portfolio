@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, FileText } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  // FileText,
+} from "lucide-react";
 import { useP3RSound } from "@/components/p3r/sound";
 
 // Each entry mimics a P3R Skill-menu row: its own shade of blue,
@@ -60,7 +65,7 @@ const PARTY = [
     icon: Linkedin,
   },
   { label: "Email", href: "mailto:jesalvad@uwaterloo.ca", icon: Mail },
-  { label: "Resume", href: "/resume", icon: FileText },
+  // { label: "Resume", href: "/resume", icon: FileText },
 ];
 
 // Red crystal shards, like the splash art accents bottom-left of the Camp screen.

@@ -16,6 +16,12 @@ type Project = {
 
 const projects: Project[] = [
   {
+    name: "berg",
+    description: "Switzerland Rail Watcher",
+    link: "https://github.com/juliansalvador727/berg",
+    category: "software",
+  },
+  {
     name: "goosehunt",
     description: "waterlooworks scraper + resume matching",
     link: "https://github.com/juliansalvador727/goosehunt",
