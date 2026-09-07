@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-export default function CoopOne() {
+export default function CoopOneWork() {
   return (
     <main>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="font-semibold">Co-op One</h1>
+          <h1 className="font-semibold">Co-op One: Work</h1>
           <span className="text-muted-foreground text-sm">Sep 2026</span>
         </div>
         <div className="space-y-3 text-sm leading-relaxed">
