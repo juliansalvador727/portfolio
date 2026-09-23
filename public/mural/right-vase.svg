@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 1000" width="400" height="1000" preserveAspectRatio="none"><defs>
+<filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="3" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.9" result="b"/>
+  <feMorphology in="b" operator="erode" radius="1.6" result="er"/>
+  <feComposite in="b" in2="er" operator="out" result="edge"/>
+  <feMerge result="m"><feMergeNode in="b"/><feMergeNode in="edge"/></feMerge>
+  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="g"/>
+  <feComposite in="m" in2="g" operator="arithmetic" k1="0.7" k2="0.65" k3="0" k4="0"/>
+</filter>
+<filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="5" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.35"/>
+</filter>
+<clipPath id="panel"><rect width="400" height="1000"/></clipPath>
+<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#1a45a8" stop-opacity="0.42"/>
+  <stop offset="0.55" stop-color="#1a45a8" stop-opacity="0.08"/>
+  <stop offset="1" stop-color="#1a45a8" stop-opacity="0"/>
+</linearGradient><clipPath id="win"><path d="M44 944V200C58 200 62 182 78 178Q200 100 322 178C338 182 342 200 356 200V944Z"/></clipPath><clipPath id="waterClip"><rect x="50" y="560" width="300" height="381"/></clipPath></defs><g clip-path="url(#panel)"><g clip-path="url(#win)"><g filter="url(#wash)" fill="#1a45a8">
+  <path d="M170 640C166 660 120 672 118 716C116 760 160 780 180 786L170 812H230L220 786C240 780 284 760 282 716C280 672 234 660 230 640Z" fill="#f4f4ef"/>
+  <path d="M170 640C166 660 120 672 118 716C116 760 160 780 180 786L170 812H230L220 786C240 780 284 760 282 716C280 672 234 660 230 640Z" fill-opacity="0.62"/>
+  <path d="M148 690C136 710 138 740 156 760" stroke="#f4f4ef" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <rect x="160" y="630" width="80" height="12" rx="4" fill-opacity="0.85"/>
+</g><g filter="url(#brush)" stroke="#15296a" fill="none" stroke-linecap="round">
+  <path d="M170 700Q161 740 182 780M180 700Q174 740 188 780M190 700Q187 740 194 780M200 700Q200 740 200 780M210 700Q213 740 206 780M220 700Q226 740 212 780M230 700Q239 740 218 780" stroke-width="1.2" opacity="0.8"/>
+  <path d="M170 640C166 660 120 672 118 716C116 760 160 780 180 786L170 812H230L220 786C240 780 284 760 282 716C280 672 234 660 230 640Z" stroke-width="1.6"/>
+  <path d="M122 700C90 690 88 650 110 646C122 644 124 660 114 662" stroke-width="3"/>
+  <path d="M278 700C310 690 312 650 290 646C278 644 276 660 286 662" stroke-width="3"/>
+</g></g></g></svg>

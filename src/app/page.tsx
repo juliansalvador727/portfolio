@@ -8,6 +8,7 @@ import { SOCIALS } from "@/components/porto/site-footer";
 import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
 import { WRITING } from "@/lib/writing";
 import { EXPERIENCE } from "@/lib/experience";
+import { PROJECTS } from "@/lib/projects";
 
 import UWLogo from "@/components/icons/UWLogo.png";
 
@@ -119,6 +120,37 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </section>
+      </Stagger>
+
+      <Stagger d={0.25}>
+        <section>
+          <SectionLabel>projects</SectionLabel>
+          <ul className="divide-y divide-border">
+            {PROJECTS.slice(0, 3).map((p) => (
+              <li key={p.name}>
+                <Link
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-baseline justify-between gap-4 py-2.5"
+                >
+                  <span className="transition-colors group-hover:text-cobalt">
+                    {p.name}
+                  </span>
+                  <span className="truncate text-right text-sm text-muted-foreground">
+                    {p.description}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/projects"
+            className="mt-3 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-cobalt"
+          >
+            all projects <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
         </section>
       </Stagger>
 

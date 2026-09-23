@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/porto/theme-toggle";
 
 const NAV = [
   { label: "projects", href: "/projects" },
@@ -42,7 +41,6 @@ export function SiteHeader() {
             </Link>
           );
         })}
-        <ThemeToggle />
       </nav>
     </header>
   );

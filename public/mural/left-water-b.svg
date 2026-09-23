@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 1000" width="400" height="1000" preserveAspectRatio="none"><defs>
+<filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="3" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.9" result="b"/>
+  <feMorphology in="b" operator="erode" radius="1.6" result="er"/>
+  <feComposite in="b" in2="er" operator="out" result="edge"/>
+  <feMerge result="m"><feMergeNode in="b"/><feMergeNode in="edge"/></feMerge>
+  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="g"/>
+  <feComposite in="m" in2="g" operator="arithmetic" k1="0.7" k2="0.65" k3="0" k4="0"/>
+</filter>
+<filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="5" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.35"/>
+</filter>
+<clipPath id="panel"><rect width="400" height="1000"/></clipPath>
+<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#1a45a8" stop-opacity="0.42"/>
+  <stop offset="0.55" stop-color="#1a45a8" stop-opacity="0.08"/>
+  <stop offset="1" stop-color="#1a45a8" stop-opacity="0"/>
+</linearGradient><clipPath id="win"><path d="M44 944V200C58 200 62 182 78 178Q200 100 322 178C338 182 342 200 356 200V944Z"/></clipPath><clipPath id="waterClip"><rect x="50" y="560" width="300" height="381"/></clipPath></defs><g clip-path="url(#panel)"><g clip-path="url(#waterClip)"><g filter="url(#wash)" stroke="#1a45a8" stroke-linecap="round" fill="none"><path d="M20 624.8Q45.9 627 71.8 626.6" stroke-width="1.9" stroke-opacity="0.2"/><path d="M102.6 624.8Q181 625.2 259.4 625.5" stroke-width="2.8" stroke-opacity="0.2"/><path d="M281.6 624.8Q366.4 624.8 451.2 623.3" stroke-width="2.1" stroke-opacity="0.2"/><path d="M35.9 650.6Q70.5 651.2 105.1 651.1" stroke-width="2.1" stroke-opacity="0.3"/><path d="M38.4 669.5Q107.7 670.4 176.9 671" stroke-width="2.8" stroke-opacity="0.3"/><path d="M223.1 669.5Q305.7 669.2 388.4 671.4" stroke-width="3" stroke-opacity="0.3"/><path d="M30.2 689.4Q97.3 690.9 164.5 690.6" stroke-width="3.8" stroke-opacity="0.3"/><path d="M194.3 689.4Q231.1 689 267.9 688.7" stroke-width="3.5" stroke-opacity="0.4"/><path d="M198.5 707.7Q281.7 707.2 365 706" stroke-width="3.6" stroke-opacity="0.3"/><path d="M177.3 733.6Q218.9 735.3 260.5 734.9" stroke-width="4.2" stroke-opacity="0.4"/><path d="M40.6 751.7Q85.3 751.7 129.9 752.9" stroke-width="3" stroke-opacity="0.4"/><path d="M299.2 751.7Q375.6 750.4 452 750.7" stroke-width="4.4" stroke-opacity="0.3"/><path d="M25.7 769.9Q78.4 771.1 131.2 770.1" stroke-width="5.3" stroke-opacity="0.3"/><path d="M171.7 769.9Q249.7 767.9 327.7 768.5" stroke-width="3.3" stroke-opacity="0.3"/><path d="M199.8 788.3Q237.4 788 275 786.9" stroke-width="5.1" stroke-opacity="0.3"/><path d="M307.4 788.3Q356.7 786.9 405.9 788.4" stroke-width="3.6" stroke-opacity="0.4"/><path d="M16.9 809.5Q71.5 808.2 126.1 808.9" stroke-width="5.2" stroke-opacity="0.4"/><path d="M285.6 809.5Q366.1 808.3 446.7 808.5" stroke-width="4.6" stroke-opacity="0.4"/><path d="M207 829.2Q261.7 830 316.4 830.3" stroke-width="5.2" stroke-opacity="0.5"/><path d="M36.4 854.4Q99.9 853.5 163.3 853.3" stroke-width="6.7" stroke-opacity="0.5"/><path d="M16.6 875.2Q90.8 874.9 165 875.6" stroke-width="6.3" stroke-opacity="0.5"/><path d="M209.7 875.2Q271.3 874.7 332.8 875.6" stroke-width="4.1" stroke-opacity="0.6"/><path d="M7.9 897.3Q47.2 897 86.5 895.3" stroke-width="5.1" stroke-opacity="0.5"/><path d="M277.3 897.3Q333 899.2 388.6 899.1" stroke-width="7.2" stroke-opacity="0.6"/><path d="M14.1 920.5Q83.6 921 153.1 919.3" stroke-width="7.7" stroke-opacity="0.5"/><path d="M188.8 920.5Q236.1 920.5 283.4 921" stroke-width="7.5" stroke-opacity="0.4"/><path d="M9 943.3Q45.2 944.6 81.4 944.2" stroke-width="6.3" stroke-opacity="0.5"/><path d="M292.5 943.3Q320.7 942.2 349 941.8" stroke-width="6" stroke-opacity="0.5"/></g></g></g></svg>

@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -40,7 +38,7 @@ html {
   scrollbar-gutter: stable;
 }
 
-/* Light: laid paper, cobalt ink — the plate the art is printed from. */
+/* Laid paper and cobalt ink. */
 :root {
   --radius: 0.375rem;
 
@@ -70,36 +68,6 @@ html {
   --wall: 0.92;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .18 0 0 0 0 .14 1.5 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='m' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .2 .45 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
-}
-
-/* Dark: the same plate after dusk on the Douro. */
-.dark {
-  --glaze: #0d1530;
-  --cobalt: #8fabf0;
-  --cobalt-soft: #1f2f5c;
-
-  --background: var(--glaze);
-  --foreground: #e3e8f5;
-  --card: #111b3a;
-  --card-foreground: #e3e8f5;
-  --popover: #111b3a;
-  --popover-foreground: #e3e8f5;
-  --primary: var(--cobalt);
-  --primary-foreground: #0d1530;
-  --secondary: #16213f;
-  --secondary-foreground: #e3e8f5;
-  --muted: #16203f;
-  --muted-foreground: #93a0bf;
-  --accent: #16213f;
-  --accent-foreground: var(--cobalt);
-  --destructive: #f97066;
-  --border: rgb(143 171 240 / 0.16);
-  --input: rgb(143 171 240 / 0.2);
-  --ring: var(--cobalt);
-
-  --wall: 0.3;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .75 0 0 0 0 .8 0 0 0 0 1 1.2 0 0 0 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='m' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .02 0 0 0 0 .03 0 0 0 0 .08 .9 0 0 0 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
 }
 
 @layer base {
@@ -145,26 +113,16 @@ html {
 /* The plate (backdrop) and the sheet */
 /* ---------------------------------- */
 
-@keyframes porto-sheen {
-  from {
-    transform: translate3d(-60%, 0, 0) rotate(-18deg);
-  }
-  to {
-    transform: translate3d(160%, 0, 0) rotate(-18deg);
-  }
-}
 
-/* Tiles and paper texture live in the margins; the reading column stays clean. */
+/* The panels stop at a hard edge; the reading column stays clean paper. */
 :root {
   --clear: min(22rem, 50%);
   --margins: linear-gradient(
     90deg,
-    #000,
-    #000 calc(50% - var(--clear) - 6rem),
+    #000 calc(50% - var(--clear)),
     transparent calc(50% - var(--clear)),
     transparent calc(50% + var(--clear)),
-    #000 calc(50% + var(--clear) + 6rem),
-    #000
+    #000 calc(50% + var(--clear))
   );
 }
 
@@ -173,63 +131,142 @@ html {
   mask-image: var(--margins);
 }
 
+/* Phones and small tablets have no margins for the panels: skip them entirely
+   (display: none also stops their images from downloading). */
+@media (max-width: 959px) {
+  .porto-backdrop {
+    display: none;
+  }
+}
+
 /* Each panel spans the full height; its width follows the painting's 2:5 shape. */
 .porto-mural {
   position: absolute;
   top: 0;
   bottom: 0;
   aspect-ratio: 2 / 5;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   opacity: var(--wall);
 }
 .porto-mural-left {
   left: 0;
-  background-image: url("/mural/left.svg");
 }
 .porto-mural-right {
   right: 0;
-  background-image: url("/mural/right.svg");
 }
-
-/* Light moving across glazed tile, every so often. */
-.porto-sheen {
-  overflow: hidden;
-}
-.porto-sheen::before {
-  content: "";
+.porto-mural-layer {
   position: absolute;
-  top: -50%;
-  left: 0;
-  width: 38%;
-  height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--glaze) 70%, transparent) 50%,
-    transparent
-  );
-  animation: porto-sheen 14s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+  inset: 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
-/* The sheet: paper grain + mottling that scroll with the content, kept to the margins. */
-.porto-paper {
-  position: relative;
+/* Left: two sets of wave strokes drift against each other; the rabelo rocks. */
+@keyframes porto-drift-a {
+  from {
+    transform: translate3d(-1%, 0, 0);
+  }
+  to {
+    transform: translate3d(1%, 0.1%, 0);
+  }
 }
-.porto-paper::after {
+@keyframes porto-drift-b {
+  from {
+    transform: translate3d(1.2%, 0.1%, 0);
+  }
+  to {
+    transform: translate3d(-1.2%, 0, 0);
+  }
+}
+@keyframes porto-rock {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.8deg);
+  }
+  50% {
+    transform: translate3d(0.5%, 0.25%, 0) rotate(0.9deg);
+  }
+}
+.porto-mural-water-a {
+  animation: porto-drift-a 6s ease-in-out infinite alternate;
+}
+.porto-mural-water-b {
+  animation: porto-drift-b 7.5s ease-in-out infinite alternate;
+}
+.porto-mural-boat {
+  transform-origin: 49% 73%;
+  animation: porto-rock 6.5s ease-in-out infinite;
+}
+
+/* Right: a breeze through the bouquet, pivoting at the vase mouth. */
+@keyframes porto-sway {
+  0%,
+  100% {
+    transform: rotate(-0.9deg);
+  }
+  40% {
+    transform: rotate(1.1deg);
+  }
+  70% {
+    transform: rotate(0.2deg);
+  }
+}
+.porto-mural-bouquet {
+  transform-origin: 50% 64%;
+  animation: porto-sway 8s ease-in-out infinite;
+}
+
+/* The odd petal carried off on the wind. */
+@keyframes porto-petal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  12% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-3.5rem, 7rem, 0) rotate(240deg);
+  }
+}
+.porto-petal {
+  position: absolute;
+  width: 2%;
+  aspect-ratio: 3 / 2;
+  border-radius: 60% 40% 60% 40%;
+  background: #1f4bb4;
+  opacity: 0;
+  animation: porto-petal 11s ease-in infinite;
+}
+.porto-petal-0 {
+  left: 64%;
+  top: 45%;
+  animation-delay: 2s;
+}
+.porto-petal-1 {
+  left: 36%;
+  top: 49%;
+  animation-delay: 6s;
+  animation-duration: 13s;
+}
+.porto-petal-2 {
+  left: 72%;
+  top: 53%;
+  animation-delay: 10s;
+  animation-duration: 12s;
+}
+
+/* Paper grain and mottling live on the painted panels only. */
+.porto-mural::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 60;
   pointer-events: none;
   background-image: var(--grain), var(--mottle);
   opacity: 0.55;
-  -webkit-mask-image: var(--margins);
-  mask-image: var(--margins);
-}
-
-.dark .porto-paper::after {
-  opacity: 0.28;
 }
 
 /* Underlined links in body copy. */
@@ -245,9 +282,13 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .porto-sheen::before,
+  .porto-mural-layer,
+  .porto-petal,
   .porto-route-enter,
   .porto-enter {
     animation: none !important;
+  }
+  .porto-petal {
+    display: none;
   }
 }
