@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: dirname(fileURLToPath(import.meta.url)),
   },
+  async redirects() {
+    // The about content now lives on the home page.
+    return [{ source: "/about", destination: "/", permanent: false }];
+  },
 };
 
 export default nextConfig;

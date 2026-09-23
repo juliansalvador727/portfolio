@@ -1,4 +1,4 @@
-import { ScreenFrame } from "@/components/p3r/screen";
+import { Page } from "@/components/porto/page";
 import { MAX_SONGS } from "@/lib/songs";
 
 /**
@@ -7,20 +7,15 @@ import { MAX_SONGS } from "@/lib/songs";
  */
 export default function MusicLoading() {
   return (
-    <ScreenFrame title="Music" wide>
-      <div className="space-y-4">
-        <div className="h-4 w-2/3 max-w-2xl animate-pulse bg-white/10" />
-        <div className="grid grid-cols-10 gap-[3px]">
-          {Array.from({ length: MAX_SONGS }).map((_, index) => (
-            <div
-              key={index}
-              className="relative aspect-square animate-pulse overflow-hidden bg-gradient-to-br from-[#081d6e]/40 to-[#04114d]/60 ring-1 ring-white/5"
-            >
-              <div className="p3r-stripes pointer-events-none absolute inset-0 opacity-20" />
-            </div>
-          ))}
-        </div>
+    <Page title="music" description="loading tiles…">
+      <div className="grid grid-cols-10 gap-[3px]">
+        {Array.from({ length: MAX_SONGS }).map((_, index) => (
+          <div
+            key={index}
+            className="aspect-square animate-pulse rounded-[2px] bg-muted"
+          />
+        ))}
       </div>
-    </ScreenFrame>
+    </Page>
   );
 }
