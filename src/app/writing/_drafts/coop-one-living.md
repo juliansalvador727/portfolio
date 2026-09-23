@@ -1,4 +1,5 @@
-/*
+<!-- Draft. Folders starting with "_" are ignored by the Next router, so this is not a page. When ready, publish it as ../coop-one-living/page.tsx and add it to src/lib/writing.ts. -->
+
 This is the second part of a two part series on my first co-op. This part is about living in and travelling around Europe.
 
 Stuttgart, Deutschland was a great place to live in for four months.
@@ -16,4 +17,3 @@ General Culture Shocks / Quirks: (Include the german term when i remember)
 - the directness. no fluff when talking about work or anything just straight to the point.
 
 Some inspiration was taken from https://mertbulan.com/more-german-than-many-germans/
-*/
