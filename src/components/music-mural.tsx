@@ -1,11 +1,10 @@
-import { Music2 } from "lucide-react";
-
 import { MAX_SONGS, type Song } from "@/lib/songs";
+import { AzulejoPattern } from "@/components/porto/azulejo";
 
 /**
  * A strict 10×10 "wall of music" mural. Always renders exactly MAX_SONGS (100)
  * cells: real plays first (already ordered newest-first by Firestore — never
- * re-sorted here), then empty placeholder tiles to fill the grid.
+ * re-sorted here), then blank azulejo tiles to fill the grid.
  */
 export function MusicMural({ songs }: { songs: Song[] }) {
   const cells: Array<Song | null> = Array.from(
@@ -23,7 +22,8 @@ export function MusicMural({ songs }: { songs: Song[] }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Open ${song.name} by ${song.artist} on Spotify`}
-            className="group relative block aspect-square overflow-hidden bg-p3r-ink ring-1 ring-white/5 transition-shadow hover:z-10 hover:ring-2 hover:ring-p3r-cyan"
+            title={`${song.name} — ${song.artist}`}
+            className="group relative block aspect-square overflow-hidden rounded-[2px] bg-muted ring-cobalt transition-shadow hover:z-10 hover:ring-2"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -33,25 +33,27 @@ export function MusicMural({ songs }: { songs: Song[] }) {
               decoding="async"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
-            {/* Hover overlay: song name + artist */}
-            <span className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-p3r-ink/95 via-p3r-navy/50 to-transparent p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-              <span className="block truncate text-[8px] font-black uppercase italic leading-tight text-white sm:text-[10px]">
+            <span className="pointer-events-none absolute inset-0 hidden flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:flex">
+              <span className="block truncate text-[10px] font-medium leading-tight text-white">
                 {song.name}
               </span>
-              <span className="block truncate text-[7px] font-bold leading-tight text-p3r-sky sm:text-[9px]">
+              <span className="block truncate text-[9px] leading-tight text-white/70">
                 {song.artist}
               </span>
             </span>
           </a>
         ) : (
-          <div
+          <svg
             key={`empty-${index}`}
             aria-hidden
-            className="relative aspect-square overflow-hidden bg-gradient-to-br from-[#081d6e]/40 to-[#04114d]/60 ring-1 ring-white/5"
+            viewBox="0 0 100 100"
+            className="aspect-square w-full rounded-[2px] text-cobalt opacity-30"
           >
-            <div className="p3r-stripes pointer-events-none absolute inset-0 opacity-20" />
-            <Music2 className="absolute inset-0 m-auto h-1/3 w-1/3 text-white/10" />
-          </div>
+            <defs>
+              <AzulejoPattern id={`mural-empty-${index}`} size={100} />
+            </defs>
+            <rect width="100" height="100" fill={`url(#mural-empty-${index})`} />
+          </svg>
         ),
       )}
     </div>

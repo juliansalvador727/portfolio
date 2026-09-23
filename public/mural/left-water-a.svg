@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 1000" width="400" height="1000" preserveAspectRatio="none"><defs>
+<filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="3" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.9" result="b"/>
+  <feMorphology in="b" operator="erode" radius="1.6" result="er"/>
+  <feComposite in="b" in2="er" operator="out" result="edge"/>
+  <feMerge result="m"><feMergeNode in="b"/><feMergeNode in="edge"/></feMerge>
+  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="9" result="g"/>
+  <feComposite in="m" in2="g" operator="arithmetic" k1="0.7" k2="0.65" k3="0" k4="0"/>
+</filter>
+<filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="5" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.35"/>
+</filter>
+<clipPath id="panel"><rect width="400" height="1000"/></clipPath>
+<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#1a45a8" stop-opacity="0.42"/>
+  <stop offset="0.55" stop-color="#1a45a8" stop-opacity="0.08"/>
+  <stop offset="1" stop-color="#1a45a8" stop-opacity="0"/>
+</linearGradient><clipPath id="win"><path d="M44 944V200C58 200 62 182 78 178Q200 100 322 178C338 182 342 200 356 200V944Z"/></clipPath><clipPath id="waterClip"><rect x="50" y="560" width="300" height="381"/></clipPath></defs><g clip-path="url(#panel)"><g clip-path="url(#waterClip)"><g filter="url(#wash)" stroke="#1a45a8" stroke-linecap="round" fill="none"><path d="M200.1 612Q248.7 612 297.3 611.5" stroke-width="1.8" stroke-opacity="0.2"/><path d="M338.1 612Q414.9 611.4 491.7 612.5" stroke-width="2.9" stroke-opacity="0.2"/><path d="M37.7 638.3Q96.7 637.6 155.7 638.6" stroke-width="2.3" stroke-opacity="0.2"/><path d="M4.8 658.6Q80.7 657.2 156.6 658.5" stroke-width="3.2" stroke-opacity="0.3"/><path d="M150.5 681.1Q233.8 680.7 317 683" stroke-width="3.1" stroke-opacity="0.2"/><path d="M149.3 698.9Q181.2 699.4 213.1 699.7" stroke-width="3.2" stroke-opacity="0.3"/><path d="M315.1 720.9Q349.1 721.1 383.2 721.7" stroke-width="3.9" stroke-opacity="0.2"/><path d="M31.3 741.8Q93.8 740.9 156.3 740.2" stroke-width="4.4" stroke-opacity="0.4"/><path d="M175.4 741.8Q231.3 742.8 287.2 742.9" stroke-width="5.2" stroke-opacity="0.3"/><path d="M336.1 741.8Q392.7 740.8 449.4 741.1" stroke-width="5.1" stroke-opacity="0.3"/><path d="M23.3 761.1Q58.6 761 93.9 761.9" stroke-width="5.2" stroke-opacity="0.4"/><path d="M113.7 761.1Q171.3 758.9 228.9 759.6" stroke-width="4.2" stroke-opacity="0.3"/><path d="M270.4 761.1Q312.3 761.2 354.2 759.2" stroke-width="4" stroke-opacity="0.4"/><path d="M19.1 798.5Q76.7 797.6 134.2 798.8" stroke-width="3.5" stroke-opacity="0.4"/><path d="M37.1 818.1Q65.9 817.8 94.7 818.6" stroke-width="5.8" stroke-opacity="0.5"/><path d="M35.6 842.1Q97 844.1 158.3 843.8" stroke-width="4.5" stroke-opacity="0.4"/><path d="M208 842.1Q283.1 841.6 358.2 840.3" stroke-width="4.6" stroke-opacity="0.5"/><path d="M6.4 863.5Q79.3 862.9 152.2 864.6" stroke-width="6.3" stroke-opacity="0.3"/><path d="M308.7 863.5Q365.2 862.9 421.7 862.4" stroke-width="4.9" stroke-opacity="0.5"/><path d="M29.5 885.5Q114.1 883.4 198.6 883.6" stroke-width="5.4" stroke-opacity="0.4"/><path d="M32.2 909.7Q80.6 910.8 129 910.7" stroke-width="7.2" stroke-opacity="0.4"/><path d="M168.2 909.7Q246.9 910.2 325.7 911.7" stroke-width="7.9" stroke-opacity="0.5"/><path d="M42 933.4Q73.7 934.2 105.5 933.6" stroke-width="5.7" stroke-opacity="0.6"/><path d="M119.9 933.4Q163.4 933.4 206.9 932.3" stroke-width="5" stroke-opacity="0.6"/><path d="M255.8 933.4Q330.2 932 404.6 932.3" stroke-width="5.6" stroke-opacity="0.6"/></g></g></g></svg>

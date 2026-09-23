@@ -1,4 +1,4 @@
-import { ScreenFrame } from "@/components/p3r/screen";
+import { Page } from "@/components/porto/page";
 import { MusicMural } from "@/components/music-mural";
 import { getMuralSongs } from "@/lib/songs";
 
@@ -13,14 +13,11 @@ export default async function MusicPage() {
   const songs = await getMuralSongs();
 
   return (
-    <ScreenFrame title="Music" wide>
-      <div className="space-y-4">
-        <p className="max-w-2xl text-xs font-bold uppercase tracking-wide text-p3r-sky sm:text-sm">
-          The last {songs.length || 100} tracks on my Spotify, newest in the
-          top-left. Hover a tile for the title — click to open it on Spotify.
-        </p>
-        <MusicMural songs={songs} />
-      </div>
-    </ScreenFrame>
+    <Page
+      title="music"
+      description={`the last ${songs.length || 100} tracks on my spotify.`}
+    >
+      <MusicMural songs={songs} />
+    </Page>
   );
 }

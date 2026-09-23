@@ -1,51 +1,48 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-import { P3RBackground } from "@/components/p3r/background";
-import { P3RHud } from "@/components/p3r/hud";
-import { SoundProvider } from "@/components/p3r/sound";
-import { RoutePreloader } from "@/components/route-preloader";
+import { SiteHeader, MobileNav } from "@/components/porto/site-header";
+import { SiteFooter } from "@/components/porto/site-footer";
+import { PortoBackdrop } from "@/components/porto/backdrop";
 import { FirebaseAnalytics } from "@/components/firebase-analytics";
 
-import localFont from "next/font/local";
-
-const rodin = localFont({
-  src: [
-    { path: "./fonts/Rodin-Pro-M.otf", weight: "400", style: "normal" },
-    { path: "./fonts/Rodin-Pro-B.otf", weight: "700", style: "normal" },
-    { path: "./fonts/NewRodin-Pro-EB.otf", weight: "800", style: "normal" },
-    { path: "./fonts/NewRodin-Pro-UB.otf", weight: "900", style: "normal" },
-  ],
-  variable: "--font-rodin",
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
   display: "swap",
-  fallback: ["system-ui", "sans-serif"],
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
+
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://juliansalvador.com"),
   title: "Julian Salvador",
-  description: "either building or playing piano",
+  description: "computer engineering at uwaterloo",
   openGraph: {
-    title: "Julian Salvador | CE at UWaterloo",
-    description: "either building or playing piano",
+    title: "Julian Salvador",
+    description: "computer engineering at uwaterloo",
     url: "https://juliansalvador.com",
     siteName: "Julian Salvador",
-    images: [
-      {
-        url: "/jsicon.svg",
-        width: 512,
-        height: 512,
-        alt: "Julian Salvador Logo",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Julian Salvador | CE at UWaterloo",
-    description: "either building or playing piano",
-    images: ["/jsicon.svg"],
+    title: "Julian Salvador",
+    description: "computer engineering at uwaterloo",
   },
 };
 
@@ -55,18 +52,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={rodin.className}>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}
+    >
       <head>
         <link rel="icon" type="image/svg+xml" href="/jsicon.svg"></link>
       </head>
-      <body className={`${rodin.variable} font-sans antialiased`}>
-        <SoundProvider>
-          <P3RBackground />
-          <P3RHud />
-          <RoutePreloader />
-          <FirebaseAnalytics />
-          <main className="min-h-dvh overflow-x-clip">{children}</main>
-        </SoundProvider>
+      <body className="font-sans antialiased">
+        <FirebaseAnalytics />
+        <PortoBackdrop />
+        <div className="relative z-10">
+          <div className="mx-auto flex min-h-dvh max-w-2xl flex-col px-4 sm:px-6">
+            <SiteHeader />
+            <MobileNav />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </div>
+        </div>
       </body>
     </html>
   );
