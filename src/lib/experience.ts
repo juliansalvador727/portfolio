@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import DLR from "@/components/icons/DLR.jpg";
+import NationGraph from "@/components/icons/NationGraph.png";
 import UWHPC from "@/components/icons/UWHPC.png";
 
 export type ExperienceEntry = {
@@ -14,6 +15,14 @@ export type ExperienceEntry = {
 
 // Newest first.
 export const EXPERIENCE: ExperienceEntry[] = [
+  {
+    role: "software engineer",
+    org: "nationgraph",
+    href: "https://www.nationgraph.com",
+    dates: "incoming winter 2027",
+    current: false,
+    logo: NationGraph,
+  },
   {
     role: "software engineer",
     org: "dlr",
