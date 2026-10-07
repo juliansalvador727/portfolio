@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { Ascii } from "ascii.rest/react";
 
 import { AzulejoPattern } from "@/components/porto/azulejo";
 import { SectionLabel } from "@/components/porto/page";
@@ -24,6 +25,7 @@ export default function Home() {
   return (
     <div className="space-y-14 pt-10 sm:pt-16">
       <Stagger d={0.1}>
+        <Ascii piece="aurora-fjord" className="mb-8" />
         <section className="flex items-start justify-between gap-6">
           <div>
             <h1 className="font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl">

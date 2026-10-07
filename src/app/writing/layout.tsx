@@ -1,3 +1,4 @@
+import { Ascii } from "ascii.rest/react";
 import { Page } from "@/components/porto/page";
 
 // Shared frame for the writing index and every entry.
@@ -7,7 +8,7 @@ export default function WritingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Page title="writing">
+    <Page title="writing" art={<Ascii piece="marine-drive" />}>
       <div className="[&_a.underline]:text-cobalt [&_h1]:font-serif [&_h1]:text-3xl [&_h1]:font-normal [&_h1]:tracking-tight">
         {children}
       </div>

@@ -1,3 +1,4 @@
+import { Ascii } from "ascii.rest/react";
 import { Page } from "@/components/porto/page";
 import { MusicMural } from "@/components/music-mural";
 import { getMuralSongs } from "@/lib/songs";
@@ -15,6 +16,7 @@ export default async function MusicPage() {
   return (
     <Page
       title="music"
+      art={<Ascii piece="kyoto-dusk" />}
       description={`the last ${songs.length || 100} tracks on my spotify.`}
     >
       <MusicMural songs={songs} />

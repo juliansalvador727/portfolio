@@ -1,3 +1,4 @@
+import { Ascii } from "ascii.rest/react";
 import { Page } from "@/components/porto/page";
 import { MAX_SONGS } from "@/lib/songs";
 
@@ -7,7 +8,11 @@ import { MAX_SONGS } from "@/lib/songs";
  */
 export default function MusicLoading() {
   return (
-    <Page title="music" description="loading tiles…">
+    <Page
+      title="music"
+      description="loading tiles…"
+      art={<Ascii piece="kyoto-dusk" />}
+    >
       <div className="grid grid-cols-10 gap-[3px]">
         {Array.from({ length: MAX_SONGS }).map((_, index) => (
           <div

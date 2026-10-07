@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { Ascii } from "ascii.rest/react";
 import { Page } from "@/components/porto/page";
 import { PROJECTS } from "@/lib/projects";
 
@@ -7,7 +8,7 @@ export const metadata = { title: "Projects | Julian Salvador" };
 
 export default function ProjectsPage() {
   return (
-    <Page title="projects">
+    <Page title="projects" art={<Ascii piece="alpine-dawn" />}>
       <ul className="divide-y divide-border">
         {PROJECTS.map((p) => (
           <li key={p.name}>

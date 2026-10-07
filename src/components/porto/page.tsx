@@ -2,15 +2,19 @@
 export function Page({
   title,
   description,
+  art,
   children,
 }: {
   title: string;
   description?: React.ReactNode;
+  /** Optional picture shown above the title. */
+  art?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <div className="pt-8 sm:pt-12">
       <header className="mb-10">
+        {art && <div className="mb-8">{art}</div>}
         <h1 className="font-serif text-5xl leading-none tracking-tight">
           {title}
         </h1>

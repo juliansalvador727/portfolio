@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Ascii } from "ascii.rest/react";
 import { Page } from "@/components/porto/page";
 import { EXPERIENCE } from "@/lib/experience";
 
@@ -7,7 +8,7 @@ export const metadata = { title: "Experience | Julian Salvador" };
 
 export default function ExperiencePage() {
   return (
-    <Page title="experience">
+    <Page title="experience" art={<Ascii piece="misty-forest" />}>
       <ol className="relative space-y-8 border-l border-border pl-6">
         {EXPERIENCE.map((e, i) => (
           <li
